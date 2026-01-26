@@ -1,0 +1,2892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pastor Dave - Practice sharing your faith or get answers to questions about the Bible, theology, and spiritual life. Available via voice, text, and phone.">
+    <meta name="keywords" content="Pastor Dave, faith sharing, evangelism practice, Bible questions, theology, spiritual guidance, Christian counseling">
+    <title>Pastor Dave - Your AI Faith Companion</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- iOS Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Pastor Dave">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#2c5f7f">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+/* ===================================
+   Pastor Dave Website Styles
+   =================================== */
+
+/* CSS Variables for Easy Theming */
+:root {
+    /* Colors - Warm, spiritual, professional */
+    --primary-color: #2c5f7f;      /* Deep blue - trust, stability */
+    --primary-dark: #1a3a4d;
+    --primary-light: #4a7fa3;
+    --secondary-color: #d4a574;     /* Warm gold - light, hope */
+    --secondary-light: #e8c9a0;
+    --accent-color: #8b4513;        /* Earthy brown - grounded */
+
+    --text-dark: #2d2d2d;
+    --text-medium: #555555;
+    --text-light: #777777;
+
+    --bg-white: #ffffff;
+    --bg-light: #f8f9fa;
+    --bg-cream: #faf8f5;
+    --bg-overlay: rgba(0, 0, 0, 0.7);
+
+    --border-light: #e0e0e0;
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-medium: rgba(0, 0, 0, 0.15);
+
+    /* Typography */
+    --font-heading: 'Lora', serif;
+    --font-body: 'Open Sans', sans-serif;
+
+    /* Spacing */
+    --section-padding: 80px 0;
+    --container-max-width: 1200px;
+
+    /* Border Radius */
+    --radius-small: 4px;
+    --radius-medium: 8px;
+    --radius-large: 12px;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-medium: 0.3s ease;
+}
+
+/* ===================================
+   Reset & Base Styles
+   =================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-dark);
+    line-height: 1.6;
+    background-color: var(--bg-white);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+
+p {
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--primary-dark);
+}
+
+ul {
+    list-style-position: inside;
+}
+
+/* ===================================
+   Layout Components
+   =================================== */
+
+.container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+section {
+    padding: var(--section-padding);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ===================================
+   Header
+   =================================== */
+
+.header {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+    color: var(--bg-white);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px var(--shadow-light);
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    font-size: 1.75rem;
+    margin-bottom: 0;
+    color: var(--bg-white);
+}
+
+.tagline {
+    font-size: 0.875rem;
+    opacity: 0.9;
+    margin: 0;
+    font-weight: 300;
+}
+
+.nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav a {
+    color: var(--bg-white);
+    font-weight: 400;
+    transition: opacity var(--transition-fast);
+}
+
+.nav a:hover {
+    opacity: 0.8;
+    color: var(--secondary-light);
+}
+
+/* ===================================
+   Hero Section
+   =================================== */
+
+.hero {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    color: var(--bg-white);
+    padding: 100px 0;
+    text-align: center;
+}
+
+.hero-content h2 {
+    font-size: 2.75rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    color: var(--bg-white);
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.95;
+    font-weight: 300;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ===================================
+   Buttons
+   =================================== */
+
+.btn {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    border-radius: var(--radius-medium);
+    font-weight: 600;
+    transition: all var(--transition-medium);
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: var(--secondary-color);
+    color: var(--text-dark);
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--bg-white);
+    border: 2px solid var(--bg-white);
+}
+
+.btn-secondary:hover {
+    background-color: var(--bg-white);
+    color: var(--primary-color);
+}
+
+.btn-mode {
+    background-color: var(--primary-color);
+    color: var(--bg-white);
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.btn-mode:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-medium);
+}
+
+/* ===================================
+   About Section
+   =================================== */
+
+.about {
+    background-color: var(--bg-white);
+}
+
+.about h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+}
+
+.about-text {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.about-text > p {
+    font-size: 1.125rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--text-medium);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.feature {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    background-color: var(--bg-light);
+    border-radius: var(--radius-large);
+    transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--shadow-light);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.feature h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+}
+
+.feature p {
+    font-size: 0.95rem;
+    color: var(--text-medium);
+    margin-bottom: 0;
+}
+
+/* ===================================
+   How It Works Section
+   =================================== */
+
+.how-it-works {
+    background-color: var(--bg-cream);
+}
+
+.how-it-works h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 3rem;
+}
+
+.modes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.mode {
+    background-color: var(--bg-white);
+    padding: 2.5rem;
+    border-radius: var(--radius-large);
+    box-shadow: 0 4px 15px var(--shadow-light);
+}
+
+.mode h3 {
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.mode p {
+    margin-bottom: 1rem;
+    color: var(--text-medium);
+}
+
+.mode strong {
+    color: var(--primary-color);
+}
+
+.mode ul {
+    margin-left: 1.5rem;
+    color: var(--text-medium);
+}
+
+.mode ul li {
+    margin-bottom: 0.5rem;
+    list-style-type: disc;
+    list-style-position: outside;
+}
+
+/* ===================================
+   Interaction Section
+   =================================== */
+
+.interact {
+    background-color: var(--bg-white);
+}
+
+.interact h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.section-intro {
+    text-align: center;
+    font-size: 1.125rem;
+    color: var(--text-medium);
+    margin-bottom: 3rem;
+}
+
+/* Direct Integration Layout */
+.interaction-modes-direct {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.interaction-card-direct {
+    background-color: var(--bg-white);
+    padding: 0;
+    border-radius: var(--radius-large);
+    box-shadow: 0 4px 20px var(--shadow-light);
+    border: 2px solid var(--border-light);
+    overflow: hidden;
+    transition: box-shadow var(--transition-medium), border-color var(--transition-medium);
+}
+
+.interaction-card-direct:hover {
+    box-shadow: 0 8px 30px var(--shadow-medium);
+    border-color: var(--primary-light);
+}
+
+.card-header {
+    padding: 2rem 2.5rem;
+    background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-cream) 100%);
+    border-bottom: 2px solid var(--border-light);
+    text-align: center;
+}
+
+.interaction-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.card-header h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+    font-size: 1.75rem;
+}
+
+.card-header p {
+    color: var(--text-medium);
+    margin-bottom: 0;
+    font-size: 1.05rem;
+}
+
+/* ElevenLabs Embed Styling */
+.elevenlabs-embed {
+    padding: 2rem;
+    background-color: var(--bg-white);
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.elevenlabs-embed elevenlabs-convai {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Phone Display Styling */
+.phone-display {
+    padding: 3rem 2rem;
+    background-color: var(--bg-white);
+    text-align: center;
+}
+
+.phone-number-large {
+    margin: 2rem 0;
+}
+
+.phone-number-large a {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    font-family: var(--font-heading);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+    display: inline-block;
+    padding: 1rem 2rem;
+    border: 3px solid var(--primary-color);
+    border-radius: var(--radius-large);
+    background-color: var(--bg-light);
+}
+
+.phone-number-large a:hover {
+    background-color: var(--primary-color);
+    color: var(--bg-white);
+    transform: scale(1.05);
+}
+
+.phone-availability {
+    font-size: 1.125rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.phone-note {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    font-style: italic;
+    margin-top: 1.5rem;
+}
+
+/* Widget Container */
+.widget-container {
+    max-width: 800px;
+    margin: 3rem auto;
+    background-color: var(--bg-white);
+    border-radius: var(--radius-large);
+    box-shadow: 0 8px 30px var(--shadow-medium);
+    overflow: hidden;
+}
+
+.widget-header {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+    color: var(--bg-white);
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.widget-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--bg-white);
+}
+
+.close-widget {
+    background: transparent;
+    border: none;
+    color: var(--bg-white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    transition: opacity var(--transition-fast);
+}
+
+.close-widget:hover {
+    opacity: 0.7;
+}
+
+#elevenlabs-widget {
+    min-height: 500px;
+    padding: 2rem;
+    background-color: var(--bg-white);
+}
+
+/* Phone Info Display */
+.phone-info {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--bg-white);
+    border-radius: var(--radius-large);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    padding: 3rem;
+    z-index: 2000;
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+}
+
+.phone-content {
+    position: relative;
+}
+
+.phone-content .close-widget {
+    position: absolute;
+    top: -2rem;
+    right: -2rem;
+    color: var(--text-dark);
+    font-size: 2rem;
+}
+
+.phone-content h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.phone-number {
+    margin: 2rem 0;
+}
+
+.phone-number a {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    font-family: var(--font-heading);
+}
+
+.phone-note {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    font-style: italic;
+}
+
+/* ===================================
+   Theology Section
+   =================================== */
+
+.theology {
+    background: linear-gradient(135deg, var(--bg-cream) 0%, var(--bg-light) 100%);
+}
+
+.theology h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.theology .section-intro {
+    margin-bottom: 3rem;
+}
+
+.theology-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.theology-item {
+    background-color: var(--bg-white);
+    padding: 2rem;
+    border-radius: var(--radius-large);
+    border-left: 4px solid var(--secondary-color);
+    box-shadow: 0 4px 15px var(--shadow-light);
+}
+
+.theology-item h4 {
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.theology-item p {
+    color: var(--text-medium);
+    margin-bottom: 0;
+    font-size: 0.95rem;
+}
+
+/* ===================================
+   FAQ Section
+   =================================== */
+
+.faq {
+    background-color: var(--bg-white);
+}
+
+.faq h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 3rem;
+}
+
+.faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-medium);
+    overflow: hidden;
+}
+
+.faq-question {
+    width: 100%;
+    background-color: var(--bg-light);
+    border: none;
+    padding: 1.25rem 1.5rem;
+    text-align: left;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color var(--transition-fast);
+    font-family: var(--font-heading);
+}
+
+.faq-question:hover {
+    background-color: var(--bg-cream);
+}
+
+.faq-icon {
+    font-size: 1.5rem;
+    font-weight: 300;
+    transition: transform var(--transition-fast);
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-medium);
+    background-color: var(--bg-white);
+}
+
+.faq-answer p {
+    padding: 1.5rem;
+    color: var(--text-medium);
+    margin-bottom: 0;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px;
+}
+
+/* ===================================
+   Footer
+   =================================== */
+
+.footer {
+    background-color: var(--primary-dark);
+    color: var(--bg-white);
+    padding: 3rem 0 1.5rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.footer-section p {
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section a {
+    color: var(--bg-white);
+    opacity: 0.85;
+    transition: opacity var(--transition-fast);
+}
+
+.footer-section a:hover {
+    opacity: 1;
+    color: var(--secondary-light);
+}
+
+.disclaimer {
+    font-size: 0.875rem;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+    opacity: 0.8;
+}
+
+.footer-bottom a {
+    color: var(--secondary-light);
+}
+
+/* ===================================
+   Responsive Design
+   =================================== */
+
+@media (max-width: 768px) {
+    :root {
+        --section-padding: 50px 0;
+    }
+
+    .header .container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero {
+        padding: 60px 0;
+    }
+
+    .hero-content h2 {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.125rem;
+    }
+
+    .modes {
+        grid-template-columns: 1fr;
+    }
+
+    .interaction-modes-direct {
+        gap: 2rem;
+    }
+
+    .card-header {
+        padding: 1.5rem 1.5rem;
+    }
+
+    .card-header h3 {
+        font-size: 1.5rem;
+    }
+
+    .elevenlabs-embed {
+        padding: 1.5rem;
+        min-height: 350px;
+    }
+
+    .phone-display {
+        padding: 2rem 1.5rem;
+    }
+
+    .phone-number-large a {
+        font-size: 1.75rem;
+        padding: 0.75rem 1.5rem;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    h3 { font-size: 1.25rem; }
+
+    .hero-content h2 {
+        font-size: 1.75rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===================================
+   Accessibility
+   =================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Focus styles for keyboard navigation */
+a:focus,
+button:focus,
+.faq-question:focus {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+/* ===================================
+   PWA Install Banner
+   =================================== */
+
+.install-banner {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(150%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: var(--bg-white);
+    padding: 1rem 2rem;
+    border-radius: var(--radius-large);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 500px;
+    width: 90%;
+    transition: transform 0.5s ease;
+}
+
+.install-banner.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+.install-banner-content {
+    flex: 1;
+}
+
+.install-banner h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.125rem;
+    color: var(--bg-white);
+}
+
+.install-banner p {
+    margin: 0;
+    font-size: 0.875rem;
+    opacity: 0.9;
+}
+
+.install-banner-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.install-btn {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--secondary-color);
+    color: var(--text-dark);
+    border: none;
+    border-radius: var(--radius-medium);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all var(--transition-medium);
+    white-space: nowrap;
+}
+
+.install-btn:hover {
+    background-color: var(--secondary-light);
+    transform: translateY(-2px);
+}
+
+.dismiss-btn {
+    background: transparent;
+    border: none;
+    color: var(--bg-white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    opacity: 0.8;
+    transition: opacity var(--transition-fast);
+}
+
+.dismiss-btn:hover {
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .install-banner {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+
+    .install-banner-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .install-btn {
+        flex: 1;
+    }
+}
+    </style>
+
+    <style>
+/**
+ * Pastor Dave WebSocket Interface Styles
+ * Custom styling for voice and text conversation interfaces
+ */
+
+/* ===================================
+   Tab Navigation
+   =================================== */
+
+.interaction-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+}
+
+.tab-button {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    background-color: var(--bg-light);
+    color: var(--text-medium);
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-large);
+    cursor: pointer;
+    transition: all var(--transition-medium);
+    font-family: var(--font-body);
+}
+
+.tab-button:hover {
+    background-color: var(--bg-cream);
+    border-color: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+.tab-button.active {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    color: var(--bg-white);
+    border-color: var(--primary-color);
+}
+
+.tab-content {
+    display: none;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* ===================================
+   Voice Interface
+   =================================== */
+
+.voice-interface {
+    background-color: var(--bg-white);
+    border-radius: var(--radius-large);
+    box-shadow: 0 4px 20px var(--shadow-light);
+    border: 2px solid var(--border-light);
+    overflow: hidden;
+}
+
+.voice-header {
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-cream) 100%);
+    border-bottom: 2px solid var(--border-light);
+}
+
+.voice-status {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--text-light);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.status-indicator.status-connecting {
+    background-color: #f0ad4e;
+}
+
+.status-indicator.status-connected {
+    background-color: #5cb85c;
+}
+
+.status-indicator.status-speaking {
+    background-color: #5bc0de;
+}
+
+.status-indicator.status-error {
+    background-color: #d9534f;
+}
+
+.status-indicator.status-disconnected {
+    background-color: var(--text-light);
+}
+
+.status-text {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.voice-visualizer {
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    background-color: var(--bg-white);
+}
+
+.visualizer-bars {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;
+    height: 100px;
+    margin-bottom: 2rem;
+}
+
+.visualizer-bar {
+    width: 6px;
+    height: 10%;
+    background: linear-gradient(to top, var(--primary-color), var(--primary-light));
+    border-radius: 3px;
+    transition: height 0.1s ease;
+}
+
+.voice-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.voice-controls {
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    background-color: var(--bg-light);
+    border-top: 1px solid var(--border-light);
+}
+
+.voice-start-btn,
+.voice-stop-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2.5rem;
+    font-size: 1.125rem;
+}
+
+.voice-stop-btn {
+    background-color: #dc3545;
+    color: var(--bg-white);
+    border: 2px solid #dc3545;
+    font-weight: 700;
+}
+
+.voice-stop-btn:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+    color: var(--bg-white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+}
+
+.text-stop-btn {
+    background-color: #dc3545;
+    color: var(--bg-white);
+    border: 2px solid #dc3545;
+    font-weight: 700;
+}
+
+.text-stop-btn:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+    color: var(--bg-white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+}
+
+.btn-icon {
+    font-size: 1.25rem;
+}
+
+.voice-transcript-container {
+    padding: 2rem;
+    background-color: var(--bg-white);
+    border-top: 1px solid var(--border-light);
+}
+
+.voice-transcript-container h4 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.voice-transcript {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 1rem;
+    background-color: var(--bg-light);
+    border-radius: var(--radius-medium);
+    border: 1px solid var(--border-light);
+}
+
+.transcript-message {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    border-radius: var(--radius-small);
+    line-height: 1.5;
+}
+
+.transcript-message:last-child {
+    margin-bottom: 0;
+}
+
+.transcript-user {
+    background-color: var(--secondary-light);
+    text-align: right;
+}
+
+.transcript-agent {
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-light);
+}
+
+.transcript-message strong {
+    color: var(--primary-color);
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.voice-info {
+    padding: 1.5rem 2rem;
+    background-color: var(--bg-cream);
+    text-align: center;
+}
+
+.voice-info p {
+    margin-bottom: 0.5rem;
+    color: var(--text-medium);
+}
+
+.voice-info p:last-child {
+    margin-bottom: 0;
+}
+
+.voice-note {
+    font-size: 0.875rem;
+    font-style: italic;
+    color: var(--text-light);
+}
+
+/* ===================================
+   Text Interface
+   =================================== */
+
+.text-interface {
+    background-color: var(--bg-white);
+    border-radius: var(--radius-large);
+    box-shadow: 0 4px 20px var(--shadow-light);
+    border: 2px solid var(--border-light);
+    overflow: hidden;
+}
+
+.text-header {
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-cream) 100%);
+    border-bottom: 2px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.text-status {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.text-controls-header {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+.chat-container {
+    background-color: var(--bg-white);
+}
+
+.chat-messages {
+    min-height: 400px;
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 2rem;
+    background-color: var(--bg-light);
+}
+
+.welcome-message {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--text-medium);
+}
+
+.welcome-message strong {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+}
+
+.chat-message {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
+}
+
+.chat-message:last-child {
+    margin-bottom: 0;
+}
+
+.message-user {
+    flex-direction: row-reverse;
+}
+
+.message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.message-user .message-avatar {
+    background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+}
+
+.message-content {
+    flex: 1;
+    max-width: 70%;
+}
+
+.message-user .message-content {
+    text-align: right;
+}
+
+.message-sender {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.message-text {
+    background-color: var(--bg-white);
+    padding: 1rem;
+    border-radius: var(--radius-medium);
+    border: 1px solid var(--border-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.message-user .message-text {
+    background-color: var(--secondary-light);
+    border-color: var(--secondary-color);
+}
+
+.chat-input-container {
+    padding: 1.5rem 2rem;
+    background-color: var(--bg-white);
+    border-top: 2px solid var(--border-light);
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+}
+
+.message-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-medium);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    resize: vertical;
+    min-height: 60px;
+    max-height: 150px;
+    transition: border-color var(--transition-fast);
+}
+
+.message-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.send-btn {
+    padding: 0.75rem 1.5rem;
+    white-space: nowrap;
+}
+
+.text-info {
+    padding: 1.5rem 2rem;
+    background-color: var(--bg-cream);
+    text-align: center;
+}
+
+.text-info p {
+    margin-bottom: 0;
+    color: var(--text-medium);
+}
+
+/* ===================================
+   Phone Call Interface
+   =================================== */
+
+.phone-call-interface {
+    background-color: var(--bg-white);
+    border-radius: var(--radius-large);
+    box-shadow: 0 4px 20px var(--shadow-light);
+    border: 2px solid var(--border-light);
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.phone-icon-large {
+    font-size: 6rem;
+    margin-bottom: 2rem;
+    animation: ring 2s ease-in-out infinite;
+}
+
+@keyframes ring {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    10%, 30% {
+        transform: rotate(-15deg);
+    }
+    20%, 40% {
+        transform: rotate(15deg);
+    }
+}
+
+.phone-call-interface h3 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.phone-call-interface > p {
+    font-size: 1.125rem;
+    color: var(--text-medium);
+    margin-bottom: 2rem;
+}
+
+.phone-number-display {
+    margin: 2.5rem 0;
+}
+
+.phone-number-btn {
+    display: inline-block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--bg-white);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    padding: 1.5rem 3rem;
+    border-radius: var(--radius-large);
+    text-decoration: none;
+    transition: all var(--transition-medium);
+    box-shadow: 0 4px 15px rgba(44, 95, 127, 0.3);
+    font-family: var(--font-heading);
+}
+
+.phone-number-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(44, 95, 127, 0.4);
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+}
+
+.phone-availability {
+    font-size: 1.125rem;
+    color: var(--text-dark);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.phone-note {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    font-style: italic;
+    margin-top: 2rem;
+}
+
+/* ===================================
+   Responsive Design
+   =================================== */
+
+@media (max-width: 768px) {
+    .interaction-tabs {
+        gap: 0.5rem;
+    }
+
+    .tab-button {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .voice-header,
+    .text-header {
+        padding: 1rem 1.5rem;
+    }
+
+    .voice-visualizer {
+        padding: 2rem 1rem;
+        min-height: 250px;
+    }
+
+    .visualizer-bars {
+        height: 80px;
+    }
+
+    .voice-icon {
+        font-size: 3rem;
+    }
+
+    .voice-controls {
+        padding: 1.5rem;
+        flex-direction: column;
+    }
+
+    .voice-start-btn,
+    .voice-stop-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .voice-transcript {
+        max-height: 200px;
+    }
+
+    .text-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .text-controls-header {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .chat-messages {
+        min-height: 300px;
+        max-height: 400px;
+        padding: 1.5rem;
+    }
+
+    .message-content {
+        max-width: 85%;
+    }
+
+    .chat-input-container {
+        padding: 1rem 1.5rem;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .send-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .phone-call-interface {
+        padding: 3rem 1.5rem;
+    }
+
+    .phone-icon-large {
+        font-size: 4rem;
+    }
+
+    .phone-call-interface h3 {
+        font-size: 1.5rem;
+    }
+
+    .phone-number-btn {
+        font-size: 1.75rem;
+        padding: 1rem 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tab-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+    }
+
+    .voice-visualizer {
+        min-height: 200px;
+    }
+
+    .visualizer-bars {
+        gap: 2px;
+    }
+
+    .visualizer-bar {
+        width: 4px;
+    }
+
+    .chat-messages {
+        min-height: 250px;
+        max-height: 350px;
+    }
+
+    .message-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+
+    .phone-number-btn {
+        font-size: 1.5rem;
+        padding: 0.75rem 1.5rem;
+    }
+}
+
+/* ===================================
+   Scrollbar Styling
+   =================================== */
+
+.voice-transcript::-webkit-scrollbar,
+.chat-messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+.voice-transcript::-webkit-scrollbar-track,
+.chat-messages::-webkit-scrollbar-track {
+    background: var(--bg-light);
+    border-radius: 4px;
+}
+
+.voice-transcript::-webkit-scrollbar-thumb,
+.chat-messages::-webkit-scrollbar-thumb {
+    background: var(--text-light);
+    border-radius: 4px;
+}
+
+.voice-transcript::-webkit-scrollbar-thumb:hover,
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: var(--text-medium);
+}
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>Pastor Dave</h1>
+                <p class="tagline">Your AI Faith Companion</p>
+            </div>
+            <nav class="nav">
+                <a href="#about">About</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#interact">Talk to Pastor Dave</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Practice Sharing Your Faith.<br>Grow in Your Spiritual Journey.</h2>
+                <p class="hero-subtitle">Whether you're learning to share the Gospel or seeking biblical guidance, Pastor Dave is here to help you grow closer to Christ.</p>
+                <div class="cta-buttons">
+                    <a href="#interact" class="btn btn-primary">Start a Conversation</a>
+                    <a href="#how-it-works" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>Meet Pastor Dave</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Pastor Dave is an AI assistant designed to help you practice sharing your faith and answer questions about the Bible, theology, and spiritual life. Built on Wesleyan theology and committed to orthodox Christian teaching, Pastor Dave serves as a practice partner for evangelism and a knowledgeable guide for biblical questions.</p>
+
+                    <div class="features-grid">
+                        <div class="feature">
+                            <div class="feature-icon">🎭</div>
+                            <h3>Evangelism Practice</h3>
+                            <p>Practice sharing your faith through realistic role-play scenarios with various personas (atheists, seekers, skeptics, and more).</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">📖</div>
+                            <h3>Biblical Guidance</h3>
+                            <p>Get answers to questions about Scripture, theology, spiritual practices, and how to apply faith to daily life.</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">💬</div>
+                            <h3>Small Group Support</h3>
+                            <p>Receive help with Bible study discussions, interpretive questions, and conversation prompts for your group.</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">❤️</div>
+                            <h3>Pastoral Care</h3>
+                            <p>Experience compassionate, Christ-centered guidance grounded in Wesleyan theology and Global Methodist tradition.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2>How Pastor Dave Works</h2>
+            <div class="modes">
+                <div class="mode">
+                    <h3>Mode 1: Evangelistic Practice</h3>
+                    <p>When you want to practice sharing your faith, Pastor Dave creates realistic role-play scenarios. He'll take on the persona of someone you might encounter—an atheist, a seeker, a skeptic, or someone hurt by the church—and help you practice responding with clarity, grace, and biblical truth.</p>
+                    <p><strong>After each interaction, you'll receive coaching:</strong></p>
+                    <ul>
+                        <li>Was Christ made clear and central?</li>
+                        <li>Was grace emphasized over moralism?</li>
+                        <li>Was there a clear invitation to faith and repentance?</li>
+                        <li>Was it winsome and loving?</li>
+                    </ul>
+                </div>
+                <div class="mode">
+                    <h3>Mode 2: Theological Q&A</h3>
+                    <p>When you have questions about the Bible, theology, faith, or spiritual life, Pastor Dave responds as a knowledgeable pastoral guide. He provides biblically grounded, theologically sound answers rooted in Wesleyan theology.</p>
+                    <p><strong>Ask about:</strong></p>
+                    <ul>
+                        <li>Biblical interpretation and context</li>
+                        <li>Theological questions (Trinity, salvation, etc.)</li>
+                        <li>Spiritual practices (prayer, fasting, communion)</li>
+                        <li>Life application and discipleship</li>
+                        <li>Small group discussion help</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interaction Section -->
+    <section id="interact" class="interact">
+        <div class="container">
+            <h2>Talk to Pastor Dave</h2>
+            <p class="section-intro">Choose how you'd like to connect:</p>
+
+            <!-- Tab Navigation -->
+            <div class="interaction-tabs">
+                <button class="tab-button active" data-tab="voice">🎙️ Voice</button>
+                <button class="tab-button" data-tab="text">💬 Text</button>
+                <button class="tab-button" data-tab="phone">📞 Phone</button>
+            </div>
+
+            <!-- Voice Tab -->
+            <div class="tab-content active" id="voice-tab">
+                <div id="voice-container"></div>
+            </div>
+
+            <!-- Text Tab -->
+            <div class="tab-content" id="text-tab">
+                <div id="text-container"></div>
+            </div>
+
+            <!-- Phone Tab -->
+            <div class="tab-content" id="phone-tab">
+                <div class="phone-call-interface">
+                    <div class="phone-icon-large">📞</div>
+                    <h3>Call Pastor Dave</h3>
+                    <p>Speak with Pastor Dave from any phone, anytime.</p>
+                    <div class="phone-number-display">
+                        <a href="tel:+18339511302" class="phone-number-btn">
+                            +1 (833) 951-1302
+                        </a>
+                    </div>
+                    <p class="phone-availability">Available 24/7 for faith conversations and biblical guidance.</p>
+                    <p class="phone-note">Standard calling rates may apply depending on your phone plan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Theological Foundation Section -->
+    <section class="theology">
+        <div class="container">
+            <h2>Grounded in Wesleyan Theology</h2>
+            <p class="section-intro">Pastor Dave operates within the Global Methodist tradition, emphasizing these biblical foundations:</p>
+
+            <div class="theology-grid">
+                <div class="theology-item">
+                    <h4>Grace Upon Grace</h4>
+                    <p>God's prevenient grace is already at work. Justifying grace saves through faith alone. Sanctifying grace transforms believers into Christlikeness.</p>
+                </div>
+                <div class="theology-item">
+                    <h4>Christ Crucified</h4>
+                    <p>The Cross and Resurrection are central. Jesus died for our sins and rose for our justification—this is the heart of the Gospel.</p>
+                </div>
+                <div class="theology-item">
+                    <h4>Personal Response</h4>
+                    <p>Grace is freely offered but must be personally received through repentance, faith, and surrender to Christ as Lord.</p>
+                </div>
+                <div class="theology-item">
+                    <h4>Social Holiness</h4>
+                    <p>Faith works through love. The Gospel transforms individuals AND communities through service, justice, and compassion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Is Pastor Dave a real person?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>No, Pastor Dave is an AI assistant designed to help you practice sharing your faith and answer biblical questions. While he's not a human pastor, he's built on solid theological foundations within the Wesleyan/Global Methodist tradition and provides biblically grounded guidance.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Can Pastor Dave replace my local church or pastor?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>No. Pastor Dave is designed to supplement—not replace—your local church community and pastoral care. He points you toward Jesus, Scripture, and the Church. For crisis situations, sacraments, community fellowship, and in-person pastoral care, you need a local church body.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>What if I'm not a Christian? Can I still use Pastor Dave?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolutely! Pastor Dave welcomes honest questions and respectful dialogue. He'll engage with you about faith, the Bible, and Christian belief without pressure or manipulation. Feel free to ask your toughest questions.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>How much does it cost to use Pastor Dave?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Pastor Dave is free to use. Voice and text chat through the website are completely free. Phone access may incur standard calling charges depending on your phone plan.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Are my conversations with Pastor Dave private?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Your conversations are processed through ElevenLabs' secure platform. While conversations are not stored permanently on this website, they may be temporarily processed by the AI service provider. For sensitive pastoral matters, please consult with a local pastor in person.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>What if I'm in a spiritual or mental health crisis?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>If you're experiencing a crisis, please reach out to local support immediately: Contact the 988 Suicide & Crisis Lifeline (call or text 988), reach out to a local pastor or Christian counselor, or if you're in immediate danger, call 911. Pastor Dave can offer spiritual encouragement, but crisis situations require in-person human care.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>What theological tradition does Pastor Dave follow?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Pastor Dave operates within the Wesleyan theological tradition as represented by the Global Methodist Church. This includes emphasis on grace (prevenient, justifying, sanctifying), personal response to the Gospel, scriptural authority, and social holiness. All guidance is rooted in orthodox Christian doctrine.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Pastor Dave</h3>
+                    <p>Helping believers practice sharing their faith and grow in biblical understanding.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#interact">Talk to Pastor Dave</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://www.biblegateway.com" target="_blank">Bible Gateway</a></li>
+                        <li><a href="https://www.globalmethodist.org" target="_blank">Global Methodist Church</a></li>
+                        <li><a href="tel:988">Crisis Lifeline: 988</a></li>
+                        <li><a href="mailto:askpastordave@baseflood.com">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Important Notice</h4>
+                    <p class="disclaimer">Pastor Dave is an AI assistant and not a substitute for local pastoral care, the Church, or the Holy Spirit. For sacraments, crisis care, and community, please connect with a local congregation.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Pastor Dave. All rights reserved. | <a href="https://www.askpastordave.org">askpastordave.org</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PWA Install Banner -->
+    <div class="install-banner" id="install-banner">
+        <div class="install-banner-content">
+            <h4>Install Pastor Dave</h4>
+            <p>Access Pastor Dave offline and from your home screen</p>
+        </div>
+        <div class="install-banner-actions">
+            <button class="install-btn" id="install-btn">Install</button>
+            <button class="dismiss-btn" id="dismiss-install">&times;</button>
+        </div>
+    </div>
+
+    <!-- ElevenLabs SDK from CDN (for both voice and text) -->
+    <script src="https://cdn.jsdelivr.net/npm/@elevenlabs/client/dist/lib.umd.js"></script>
+
+    <script>
+/**
+ * Pastor Dave Website JavaScript
+ * Handles interactive elements for direct ElevenLabs integration
+ */
+
+// ===================================
+// FAQ Toggle Functionality
+// ===================================
+
+function toggleFaq(button) {
+    const faqItem = button.parentElement;
+    const isActive = faqItem.classList.contains('active');
+
+    // Close all FAQ items
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('active');
+    });
+
+    // If the clicked item wasn't active, open it
+    if (!isActive) {
+        faqItem.classList.add('active');
+    }
+}
+
+// ===================================
+// Smooth Scroll for Navigation Links
+// ===================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Add smooth scrolling to all nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+
+            if (target) {
+                const headerOffset = 80; // Account for sticky header
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
+
+// ===================================
+// Intersection Observer for Animations
+// ===================================
+
+// Add fade-in animations as elements come into view
+document.addEventListener('DOMContentLoaded', function() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Observe feature cards, mode cards, etc.
+    document.querySelectorAll('.feature, .mode, .interaction-card-direct, .theology-item').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(el);
+    });
+});
+
+// ===================================
+// Analytics/Tracking Integration (Optional)
+// ===================================
+
+/**
+ * Track interactions with Pastor Dave
+ * Useful for understanding which modes are most popular
+ */
+
+// Track when ElevenLabs widgets are interacted with
+document.addEventListener('DOMContentLoaded', function() {
+    // Add event listeners to track widget interactions
+    const voiceWidget = document.querySelector('#voice-section elevenlabs-convai');
+    const textWidget = document.querySelector('#text-section elevenlabs-convai');
+
+    if (voiceWidget) {
+        voiceWidget.addEventListener('click', function() {
+            trackInteraction('voice_widget_clicked');
+        });
+    }
+
+    if (textWidget) {
+        textWidget.addEventListener('click', function() {
+            trackInteraction('text_widget_clicked');
+        });
+    }
+
+    // Track phone number clicks
+    const phoneLink = document.querySelector('.phone-number-large a');
+    if (phoneLink) {
+        phoneLink.addEventListener('click', function() {
+            trackInteraction('phone_number_clicked');
+        });
+    }
+});
+
+function trackInteraction(eventName) {
+    // If you have Google Analytics or another tracking tool:
+    /*
+    if (typeof gtag !== 'undefined') {
+        gtag('event', eventName, {
+            'page_path': window.location.pathname
+        });
+    }
+    */
+
+    console.log(`User interaction: ${eventName}`);
+}
+
+// ===================================
+// Error Handling
+// ===================================
+
+window.addEventListener('error', function(e) {
+    console.error('JavaScript error:', e.error);
+    // Optionally send errors to a logging service
+});
+
+// ===================================
+// ElevenLabs Widget Ready Check (Optional)
+// ===================================
+
+/**
+ * Monitor when ElevenLabs widgets are fully loaded
+ * This can be useful for showing loading states or handling initialization
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if ElevenLabs widgets are present
+    const widgets = document.querySelectorAll('elevenlabs-convai');
+
+    if (widgets.length > 0) {
+        console.log(`Pastor Dave: ${widgets.length} ElevenLabs widgets initialized`);
+
+        // You can add custom logic here when widgets are ready
+        widgets.forEach((widget, index) => {
+            const agentId = widget.getAttribute('agent-id');
+            console.log(`Widget ${index + 1}: Agent ID ${agentId}`);
+        });
+    }
+});
+
+// ===================================
+// Accessibility Enhancements
+// ===================================
+
+// Add keyboard navigation support for FAQ items
+document.addEventListener('DOMContentLoaded', function() {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+
+    faqQuestions.forEach(question => {
+        question.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    });
+});
+
+// ===================================
+// Mobile Optimization
+// ===================================
+
+/**
+ * Detect if user is on mobile and adjust widget behavior if needed
+ */
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (isMobileDevice()) {
+        console.log('Mobile device detected');
+        // Add mobile-specific class to body for additional styling if needed
+        document.body.classList.add('mobile-device');
+    }
+});
+
+// ===================================
+// Service Worker Registration (Optional - for PWA features)
+// ===================================
+
+/**
+ * If you want to make this a Progressive Web App (PWA) later,
+ * you can register a service worker here
+ */
+/*
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js').then(
+            function(registration) {
+                console.log('ServiceWorker registration successful');
+            },
+            function(err) {
+                console.log('ServiceWorker registration failed: ', err);
+            }
+        );
+    });
+}
+*/
+
+// ===================================
+// Page Visibility API (Optional)
+// ===================================
+
+/**
+ * Track when users leave/return to the page
+ * Useful for analytics and understanding engagement
+ */
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        console.log('User left the page');
+        // Track page visibility change if using analytics
+    } else {
+        console.log('User returned to the page');
+        // Track page visibility change if using analytics
+    }
+});
+
+// ===================================
+// Console Welcome Message
+// ===================================
+
+console.log('%c👋 Welcome to Pastor Dave!', 'font-size: 20px; color: #2c5f7f; font-weight: bold;');
+console.log('%cThis AI assistant helps you practice sharing your faith and answers biblical questions.', 'font-size: 14px; color: #555;');
+console.log('%cPowered by ElevenLabs ConvAI', 'font-size: 12px; color: #777; font-style: italic;');
+    </script>
+
+    <script>
+/**
+ * Pastor Dave Voice UI - Using ElevenLabs SDK
+ * Much simpler implementation with custom UI
+ */
+
+class PastorDaveSDKVoiceUI {
+    constructor(containerId, agentId) {
+        this.container = document.getElementById(containerId);
+        this.agentId = agentId;
+        this.conversation = null;
+        this.isActive = false;
+
+        this.init();
+    }
+
+    init() {
+        this.render();
+
+        // Get UI elements
+        this.statusIndicator = this.container.querySelector('.voice-status');
+        this.startButton = this.container.querySelector('.voice-start-btn');
+        this.stopButton = this.container.querySelector('.voice-stop-btn');
+        this.transcript = this.container.querySelector('.voice-transcript');
+        this.visualizer = this.container.querySelector('.voice-visualizer');
+
+        // Attach event listeners
+        this.startButton.addEventListener('click', () => this.start());
+        this.stopButton.addEventListener('click', () => this.stop());
+    }
+
+    render() {
+        this.container.innerHTML = `
+            <div class="voice-interface">
+                <div class="voice-header">
+                    <div class="voice-status">
+                        <span class="status-indicator"></span>
+                        <span class="status-text">Ready to connect</span>
+                    </div>
+                </div>
+
+                <div class="voice-visualizer">
+                    <div class="visualizer-bars">
+                        ${Array(20).fill(0).map(() => '<div class="visualizer-bar"></div>').join('')}
+                    </div>
+                    <div class="voice-icon">🎙️</div>
+                </div>
+
+                <div class="voice-controls">
+                    <button class="voice-start-btn btn btn-primary">
+                        <span class="btn-icon">▶️</span> Start Conversation
+                    </button>
+                    <button class="voice-stop-btn btn btn-secondary" style="display: none;">
+                        <span class="btn-icon">⏹️</span> Stop
+                    </button>
+                </div>
+
+                <div class="voice-transcript-container">
+                    <h4>Conversation</h4>
+                    <div class="voice-transcript"></div>
+                </div>
+
+                <div class="voice-info">
+                    <p>Click "Start Conversation" to begin talking with Pastor Dave.</p>
+                    <p class="voice-note">Make sure your microphone is enabled and working.</p>
+                </div>
+            </div>
+        `;
+    }
+
+    async start() {
+        try {
+            this.updateStatus('connecting', 'Requesting microphone access...');
+            this.startButton.style.display = 'none';
+            this.stopButton.style.display = 'inline-flex';
+
+            // Request microphone access
+            await navigator.mediaDevices.getUserMedia({ audio: true });
+
+            this.updateStatus('connecting', 'Connecting to Pastor Dave...');
+
+            // Start conversation using SDK (exported as window.client.Conversation)
+            this.conversation = await window.client.Conversation.startSession({
+                agentId: this.agentId,
+
+                // Event callbacks
+                onConnect: () => {
+                    console.log('Connected to Pastor Dave');
+                    this.updateStatus('connected', 'Connected - Speak now');
+                    this.isActive = true;
+                    this.startVisualizer();
+                },
+
+                onDisconnect: () => {
+                    console.log('Disconnected from Pastor Dave');
+                    this.updateStatus('disconnected', 'Disconnected');
+                    this.stop();
+                },
+
+                onMessage: (message) => {
+                    console.log('Message received:', message);
+
+                    // Handle user transcripts - check multiple possible formats
+                    if (message.type === 'user_transcript' || message.type === 'user_transcription') {
+                        const userText = message.text || message.user_transcription || message.transcript;
+                        if (userText) {
+                            this.addTranscript('user', userText);
+                        }
+                    }
+
+                    // Handle agent responses - check multiple possible formats
+                    if (message.type === 'agent_response') {
+                        const agentText = message.text || message.response || message.message;
+                        if (agentText) {
+                            this.addTranscript('agent', agentText);
+                        }
+                    }
+
+                    // Also check for role-based messages (similar to text mode)
+                    if (message.role === 'user' && message.message) {
+                        this.addTranscript('user', message.message);
+                    }
+
+                    if (message.role === 'agent' && message.message) {
+                        this.addTranscript('agent', message.message);
+                    }
+                },
+
+                onError: (error) => {
+                    console.error('Conversation error:', error);
+                    this.updateStatus('error', 'Error occurred');
+                    alert('An error occurred. Please try again.');
+                    this.stop();
+                },
+
+                onModeChange: (mode) => {
+                    console.log('Mode changed:', mode);
+                    // mode can be 'speaking' or 'listening'
+                    if (mode.mode === 'speaking') {
+                        this.updateStatus('speaking', 'Pastor Dave is speaking...');
+                    } else {
+                        this.updateStatus('connected', 'Connected - Speak now');
+                    }
+                }
+            });
+
+        } catch (error) {
+            console.error('Error starting conversation:', error);
+            this.updateStatus('error', 'Failed to start');
+            this.stop();
+            alert('Failed to start conversation. Please check your microphone and try again.');
+        }
+    }
+
+    async stop() {
+        if (this.conversation) {
+            try {
+                await this.conversation.endSession();
+            } catch (error) {
+                console.error('Error ending session:', error);
+            }
+            this.conversation = null;
+        }
+
+        this.isActive = false;
+        this.updateStatus('disconnected', 'Ready to connect');
+        this.stopVisualizer();
+
+        // Update buttons
+        this.startButton.style.display = 'inline-flex';
+        this.stopButton.style.display = 'none';
+    }
+
+    updateStatus(state, text) {
+        const indicator = this.statusIndicator.querySelector('.status-indicator');
+        const statusText = this.statusIndicator.querySelector('.status-text');
+
+        indicator.className = `status-indicator status-${state}`;
+        statusText.textContent = text;
+    }
+
+    addTranscript(speaker, text) {
+        if (!text) return;
+
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `transcript-message transcript-${speaker}`;
+
+        const label = document.createElement('strong');
+        label.textContent = speaker === 'user' ? 'You: ' : 'Pastor Dave: ';
+
+        const content = document.createElement('span');
+        content.textContent = text;
+
+        messageDiv.appendChild(label);
+        messageDiv.appendChild(content);
+
+        this.transcript.appendChild(messageDiv);
+        this.transcript.scrollTop = this.transcript.scrollHeight;
+    }
+
+    startVisualizer() {
+        const bars = this.visualizer.querySelectorAll('.visualizer-bar');
+        this.visualizerInterval = setInterval(() => {
+            bars.forEach(bar => {
+                const height = Math.random() * 100;
+                bar.style.height = `${height}%`;
+            });
+        }, 100);
+    }
+
+    stopVisualizer() {
+        if (this.visualizerInterval) {
+            clearInterval(this.visualizerInterval);
+            const bars = this.visualizer.querySelectorAll('.visualizer-bar');
+            bars.forEach(bar => bar.style.height = '10%');
+        }
+    }
+}
+
+// Export for use in HTML
+if (typeof window !== 'undefined') {
+    window.PastorDaveSDKVoiceUI = PastorDaveSDKVoiceUI;
+}
+    </script>
+
+    <script>
+/**
+ * Pastor Dave Text UI - Using ElevenLabs SDK
+ * Consistent SDK implementation for text conversations
+ */
+
+class PastorDaveSDKTextUI {
+    constructor(containerId, agentId, options = {}) {
+        this.container = document.getElementById(containerId);
+        this.agentId = agentId;
+        this.options = options;
+        this.conversation = null;
+        this.isActive = false;
+
+        this.init();
+    }
+
+    init() {
+        this.render();
+
+        // Get UI elements
+        this.statusIndicator = this.container.querySelector('.text-status');
+        this.startButton = this.container.querySelector('.text-start-btn');
+        this.stopButton = this.container.querySelector('.text-stop-btn');
+        this.chatMessages = this.container.querySelector('.chat-messages');
+        this.messageInput = this.container.querySelector('.message-input');
+        this.sendButton = this.container.querySelector('.send-btn');
+
+        // Attach event listeners
+        this.startButton.addEventListener('click', () => this.start());
+        this.stopButton.addEventListener('click', () => this.stop());
+        this.sendButton.addEventListener('click', () => this.sendMessage());
+        this.messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                this.sendMessage();
+            }
+        });
+    }
+
+    render() {
+        this.container.innerHTML = `
+            <div class="text-interface">
+                <div class="text-header">
+                    <div class="text-status">
+                        <span class="status-indicator"></span>
+                        <span class="status-text">Ready to connect</span>
+                    </div>
+                    <div class="text-controls-header">
+                        <button class="text-start-btn btn btn-small btn-primary">Connect</button>
+                        <button class="text-stop-btn btn btn-small btn-secondary" style="display: none;">Disconnect</button>
+                    </div>
+                </div>
+
+                <div class="chat-container">
+                    <div class="chat-messages">
+                        <div class="welcome-message">
+                            <p><strong>Welcome!</strong></p>
+                            <p>Click "Connect" to start a text conversation with Pastor Dave.</p>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-container" style="display: none;">
+                        <textarea class="message-input" placeholder="Type your message here..." rows="3"></textarea>
+                        <button class="send-btn btn btn-primary">
+                            <span class="btn-icon">📤</span> Send
+                        </button>
+                    </div>
+                </div>
+
+                <div class="text-info">
+                    <p>Ask questions about faith, practice evangelism, or discuss Scripture with Pastor Dave.</p>
+                </div>
+            </div>
+        `;
+    }
+
+    async start() {
+        try {
+            this.updateStatus('connecting', 'Connecting...');
+            this.startButton.style.display = 'none';
+            this.stopButton.style.display = 'inline-flex';
+
+            // Clear welcome message
+            this.chatMessages.innerHTML = '';
+
+            // Show input
+            this.container.querySelector('.chat-input-container').style.display = 'flex';
+
+            // Start text conversation using SDK
+            this.conversation = await window.client.Conversation.startSession({
+                agentId: this.agentId,
+
+                // Event callbacks
+                onConnect: () => {
+                    console.log('Text conversation connected');
+                    this.updateStatus('connected', 'Connected - Type your message');
+                    this.isActive = true;
+                    this.messageInput.focus();
+                },
+
+                onDisconnect: () => {
+                    console.log('Text conversation disconnected');
+                    this.updateStatus('disconnected', 'Disconnected');
+                    this.stop();
+                },
+
+                onMessage: (message) => {
+                    console.log('Message received:', message);
+
+                    // Handle agent responses only (user messages are displayed immediately when sent)
+                    if (message.role === 'agent' && message.message) {
+                        this.addMessage('agent', message.message);
+                    }
+
+                    // Also handle other message formats
+                    if (message.type === 'agent_response') {
+                        const text = message.text || message.response;
+                        if (text) {
+                            this.addMessage('agent', text);
+                        }
+                    }
+                },
+
+                onError: (error) => {
+                    console.error('Text conversation error:', error);
+                    this.updateStatus('error', 'Error occurred');
+                    alert('An error occurred. Please try again.');
+                    this.stop();
+                }
+            });
+
+        } catch (error) {
+            console.error('Error starting text conversation:', error);
+            this.updateStatus('error', 'Failed to connect');
+            this.stop();
+            alert('Failed to start conversation. Please try again.');
+        }
+    }
+
+    async stop() {
+        if (this.conversation) {
+            try {
+                await this.conversation.endSession();
+            } catch (error) {
+                console.error('Error ending session:', error);
+            }
+            this.conversation = null;
+        }
+
+        this.isActive = false;
+        this.updateStatus('disconnected', 'Ready to connect');
+
+        // Update buttons
+        this.startButton.style.display = 'inline-flex';
+        this.stopButton.style.display = 'none';
+
+        // Hide input
+        this.container.querySelector('.chat-input-container').style.display = 'none';
+    }
+
+    sendMessage() {
+        const text = this.messageInput.value.trim();
+        if (!text || !this.isActive || !this.conversation) {
+            return;
+        }
+
+        // Display user message immediately (SDK doesn't echo it back)
+        this.addMessage('user', text);
+
+        // Send message via SDK
+        try {
+            this.conversation.sendUserMessage(text);
+
+            // Clear input
+            this.messageInput.value = '';
+            this.messageInput.focus();
+
+        } catch (error) {
+            console.error('Error sending message:', error);
+            alert('Failed to send message. Please try again.');
+        }
+    }
+
+    updateStatus(state, text) {
+        const indicator = this.statusIndicator.querySelector('.status-indicator');
+        const statusText = this.statusIndicator.querySelector('.status-text');
+
+        indicator.className = `status-indicator status-${state}`;
+        statusText.textContent = text;
+    }
+
+    addMessage(speaker, text) {
+        if (!text) return;
+
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `chat-message chat-${speaker}`;
+
+        const label = document.createElement('strong');
+        label.textContent = speaker === 'user' ? 'You: ' : 'Pastor Dave: ';
+
+        const content = document.createElement('span');
+        content.textContent = text;
+
+        messageDiv.appendChild(label);
+        messageDiv.appendChild(content);
+
+        this.chatMessages.appendChild(messageDiv);
+        this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+    }
+}
+
+// Export for use in HTML
+if (typeof window !== 'undefined') {
+    window.PastorDaveSDKTextUI = PastorDaveSDKTextUI;
+}
+    </script>
+
+    <script>
+        // Configuration - Public Agent IDs
+        const VOICE_AGENT_ID = 'WHQrRot6LBqeqZjE9Xff';
+        const TEXT_AGENT_ID = 'agent_9501kegdsyf2exwtdzwn3j0s3a3g';
+
+        // Initialize interfaces when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Voice UI using SDK
+            const voiceUI = new PastorDaveSDKVoiceUI('voice-container', VOICE_AGENT_ID);
+
+            // Initialize Text UI using SDK
+            const textUI = new PastorDaveSDKTextUI('text-container', TEXT_AGENT_ID, {
+                debug: true  // Enable console logging for debugging
+            });
+
+            // Tab switching
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    // Add active class to clicked button and corresponding content
+                    this.classList.add('active');
+                    document.getElementById(`${tabName}-tab`).classList.add('active');
+                });
+            });
+        });
+    </script>
+
+    <script>
+/**
+ * PWA Service Worker Registration and Install Prompt
+ * Handles offline support and app installation
+ */
+
+// Service Worker Registration
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('service-worker.js')
+            .then(function(registration) {
+                console.log('[PWA] Service Worker registered successfully:', registration.scope);
+
+                // Check for updates
+                registration.addEventListener('updatefound', () => {
+                    const newWorker = registration.installing;
+                    console.log('[PWA] New Service Worker installing...');
+
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            console.log('[PWA] New version available! Refresh to update.');
+                            // Optionally show a notification to the user
+                        }
+                    });
+                });
+            })
+            .catch(function(error) {
+                console.error('[PWA] Service Worker registration failed:', error);
+            });
+
+        // Handle service worker updates
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (!refreshing) {
+                refreshing = true;
+                window.location.reload();
+            }
+        });
+    });
+}
+
+// PWA Install Prompt Handler
+let deferredPrompt = null;
+const installBanner = document.getElementById('install-banner');
+const installBtn = document.getElementById('install-btn');
+const dismissBtn = document.getElementById('dismiss-install');
+
+// Listen for the beforeinstallprompt event
+window.addEventListener('beforeinstallprompt', (e) => {
+    console.log('[PWA] Install prompt available');
+
+    // Prevent the default mini-infobar from appearing
+    e.preventDefault();
+
+    // Store the event for later use
+    deferredPrompt = e;
+
+    // Check if user has previously dismissed the banner
+    const dismissed = localStorage.getItem('pwa-install-dismissed');
+    const installed = localStorage.getItem('pwa-installed');
+
+    // Show install banner after a short delay if not dismissed or installed
+    if (!dismissed && !installed) {
+        setTimeout(() => {
+            installBanner.classList.add('show');
+        }, 3000); // Show after 3 seconds
+    }
+});
+
+// Handle install button click
+if (installBtn) {
+    installBtn.addEventListener('click', async () => {
+        if (!deferredPrompt) {
+            console.log('[PWA] Install prompt not available');
+            return;
+        }
+
+        // Show the install prompt
+        deferredPrompt.prompt();
+
+        // Wait for the user's response
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`[PWA] User response to install prompt: ${outcome}`);
+
+        if (outcome === 'accepted') {
+            console.log('[PWA] User accepted the install prompt');
+            localStorage.setItem('pwa-installed', 'true');
+        } else {
+            console.log('[PWA] User dismissed the install prompt');
+        }
+
+        // Hide the install banner
+        installBanner.classList.remove('show');
+
+        // Clear the deferred prompt
+        deferredPrompt = null;
+    });
+}
+
+// Handle dismiss button click
+if (dismissBtn) {
+    dismissBtn.addEventListener('click', () => {
+        installBanner.classList.remove('show');
+        localStorage.setItem('pwa-install-dismissed', 'true');
+        console.log('[PWA] Install banner dismissed by user');
+    });
+}
+
+// Handle successful app installation
+window.addEventListener('appinstalled', (e) => {
+    console.log('[PWA] App successfully installed');
+    localStorage.setItem('pwa-installed', 'true');
+    installBanner.classList.remove('show');
+
+    // Optionally show a thank you message
+    // You could add a notification here
+});
+
+// Detect if app is running in standalone mode (installed as PWA)
+if (window.matchMedia('(display-mode: standalone)').matches ||
+    window.navigator.standalone === true) {
+    console.log('[PWA] App is running in standalone mode');
+    // Hide install banner if running as installed app
+    if (installBanner) {
+        installBanner.style.display = 'none';
+    }
+}
+
+// iOS-specific detection (iOS doesn't support beforeinstallprompt)
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
+
+if (isIOS && !isInStandaloneMode) {
+    console.log('[PWA] iOS device detected - Manual installation available via Share button');
+
+    // Optionally show iOS-specific install instructions
+    const dismissed = localStorage.getItem('pwa-install-dismissed');
+    if (!dismissed) {
+        // Show iOS install instructions after delay
+        setTimeout(() => {
+            // Update banner text for iOS users
+            const bannerContent = document.querySelector('.install-banner-content');
+            if (bannerContent) {
+                bannerContent.innerHTML = `
+                    <h4>Install Pastor Dave</h4>
+                    <p>Tap the Share button, then "Add to Home Screen"</p>
+                `;
+                installBanner.classList.add('show');
+
+                // Hide install button for iOS (not needed)
+                if (installBtn) {
+                    installBtn.style.display = 'none';
+                }
+            }
+        }, 3000);
+    }
+}
+
+// Network status monitoring
+window.addEventListener('online', () => {
+    console.log('[PWA] App is online');
+    // Optionally show online notification
+});
+
+window.addEventListener('offline', () => {
+    console.log('[PWA] App is offline - Using cached content');
+    // Optionally show offline notification
+});
+
+// Log PWA capabilities
+console.log('[PWA] Capabilities:');
+console.log('- Service Worker:', 'serviceWorker' in navigator);
+console.log('- Push Notifications:', 'PushManager' in window);
+console.log('- Background Sync:', 'SyncManager' in window);
+console.log('- Installation:', window.matchMedia('(display-mode: standalone)').matches);
+    </script>
+</body>
+</html>
