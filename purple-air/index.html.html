@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Air Quality Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --surface: #ffffff;
+      --surface-secondary: #f8fafc;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --text-secondary: #64748b;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--surface);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      align-items: center;
+    }
+
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    select {
+      padding: 8px 32px 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      background: var(--surface-secondary);
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    select:hover {
+      border-color: var(--primary);
+    }
+
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    select option:disabled {
+      color: #999;
+      background: #f5f5f5;
+      font-style: italic;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: var(--shadow);
+    }
+
+    button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      background: var(--border);
+      color: var(--text-secondary);
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-success {
+      background: var(--success);
+    }
+
+    .btn-success:hover:not(:disabled) {
+      background: #059669;
+    }
+
+    .status {
+      color: var(--text-secondary);
+      font-size: 13px;
+      margin-left: auto;
+    }
+
+    .chart-container {
+      background: var(--surface);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 24px;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .chart-header h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .sensor-toggles {
+      background: var(--surface-secondary);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .toggle-section {
+      margin-bottom: 20px;
+    }
+
+    .toggle-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .toggle-section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toggle-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 10px;
+    }
+
+    .toggle-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: var(--surface);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .toggle-item:hover {
+      background: #f1f5f9;
+      border-color: var(--primary);
+    }
+
+    .toggle-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    .toggle-label {
+      font-size: 13px;
+      color: var(--text);
+      cursor: pointer;
+      user-select: none;
+      flex: 1;
+    }
+
+    .chart-wrapper {
+      position: relative;
+      height: 500px;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-secondary);
+    }
+
+    .error {
+      color: var(--danger);
+      font-weight: 600;
+      padding: 20px;
+      background: #fef2f2;
+      border-radius: 8px;
+      border: 1px solid #fecaca;
+    }
+
+    .current-readings {
+      background: var(--surface);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 24px;
+    }
+
+    .current-readings h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+
+    .readings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+    }
+
+    .reading-card {
+      background: var(--surface-secondary);
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .reading-card h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .reading-values {
+      display: grid;
+      gap: 8px;
+    }
+
+    .reading-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    .reading-row .label {
+      color: var(--text-secondary);
+    }
+
+    .reading-row .value {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: white;
+      font-size: 13px;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 12px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .control-group {
+        width: 100%;
+      }
+
+      select, button {
+        width: 100%;
+      }
+
+      .chart-wrapper {
+        height: 400px;
+      }
+
+      .toggle-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Air Quality Dashboard</h1>
+      <p class="subtitle">Real-time monitoring of PurpleAir sensors across multiple locations</p>
+      <p class="subtitle" style="margin-top: 4px; font-size: 12px; opacity: 0.8;">Select a time range first, then choose a compatible data averaging period</p>
+
+      <div class="controls">
+        <div class="control-group">
+          <label for="timeRange">Time Range:</label>
+          <select id="timeRange">
+            <!-- Options populated by JavaScript -->
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="average">Data Average:</label>
+          <select id="average">
+            <!-- Options populated by JavaScript based on time range selection -->
+          </select>
+        </div>
+
+        <button id="refreshBtn">Refresh Data</button>
+        <button id="downloadBtn" class="btn-success" disabled>Download Current CSV</button>
+        <button id="bulkDownloadBtn" class="btn-success">Download Detailed History</button>
+
+        <span class="status" id="lastUpdate">Loading...</span>
+      </div>
+
+      <div id="apiLimitInfo" style="margin-top: 12px; padding: 12px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 12px; line-height: 1.6; color: var(--text-secondary);"></div>
+
+      <!-- Bulk Download Modal -->
+      <div id="bulkDownloadModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center;">
+        <div style="background: white; padding: 30px; border-radius: 16px; max-width: 500px; width: 90%;">
+          <h2 style="margin: 0 0 20px 0; color: var(--text);">Download Detailed Historical Data</h2>
+          <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+            This feature downloads high-resolution (10-minute averaged) data by making multiple API calls.
+            This may take several minutes for longer time periods.
+          </p>
+
+          <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">Time Period:</label>
+            <select id="bulkTimeRange" style="width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px;">
+              <option value="7">Last 7 days</option>
+              <option value="14">Last 14 days</option>
+              <option value="30" selected>Last 30 days</option>
+              <option value="60">Last 60 days</option>
+              <option value="90">Last 90 days</option>
+            </select>
+          </div>
+
+          <div id="bulkDownloadProgress" style="display: none; margin-bottom: 20px;">
+            <div style="background: var(--surface-secondary); height: 30px; border-radius: 8px; overflow: hidden; position: relative;">
+              <div id="bulkProgressBar" style="background: var(--primary); height: 100%; width: 0%; transition: width 0.3s;"></div>
+              <span id="bulkProgressText" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 12px; font-weight: 600; color: var(--text);">0%</span>
+            </div>
+            <p id="bulkProgressStatus" style="font-size: 12px; color: var(--text-secondary); margin-top: 8px; text-align: center;"></p>
+          </div>
+
+          <div style="display: flex; gap: 12px; justify-content: flex-end;">
+            <button id="bulkDownloadCancel" style="background: var(--border); color: var(--text);">Cancel</button>
+            <button id="bulkDownloadStart" class="btn-success">Start Download</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="chart-container">
+      <div class="chart-header">
+        <h2>Sensor Data Visualization</h2>
+      </div>
+
+      <div class="sensor-toggles" id="toggles">
+        <div class="loading">Loading sensors...</div>
+      </div>
+
+      <div class="chart-wrapper">
+        <canvas id="mainChart"></canvas>
+      </div>
+    </div>
+
+    <div class="current-readings">
+      <h2>Current Readings</h2>
+      <div class="readings-grid" id="currentReadings">
+        <div class="loading">Loading current values...</div>
+      </div>
+    </div>
+
+    <footer>
+      Built with the PurpleAir API - Data updates every 10 minutes
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+  <script>
+    // Configuration
+    const CONFIG = {
+      apiKey: "FE669F39-875C-11F0-BDE5-4201AC1DC121",
+      sensors: [
+        { id: 286666, name: "Building 11 Indoor", readKey: "9PGWWJPNSS8LXKU8", color: "#3b82f6" },
+        { id: 286712, name: "Building 11 Outdoor", readKey: "7ZZSPX6UD47F8LZT", color: "#10b981" },
+        { id: 286640, name: "Building 3", readKey: "YCJDZJIMDMQJ61FO", color: "#f59e0b" },
+        { id: 286706, name: "Building 4", readKey: "EQ6E9SWU8EYERDA3", color: "#ef4444" },
+        { id: 286578, name: "Building 5", readKey: "01TNMV73OQEJ873I", color: "#8b5cf6" }
+      ],
+      fields: [
+        { key: "pm1.0_atm", label: "PM1.0", unit: "μg/m³", group: "pm" },
+        { key: "pm2.5_atm", label: "PM2.5", unit: "μg/m³", group: "pm", default: true },
+        { key: "pm2.5_alt", label: "PM2.5 (Alt)", unit: "μg/m³", group: "pm" },
+        { key: "pm10.0_atm", label: "PM10", unit: "μg/m³", group: "pm" },
+        { key: "temperature", label: "Temperature", unit: "°F", group: "env" },
+        { key: "humidity", label: "Humidity", unit: "%", group: "env" },
+        { key: "pressure", label: "Pressure", unit: "mbar", group: "env" },
+        { key: "voc", label: "VOC", unit: "index", group: "env" }
+      ],
+      // PurpleAir API limits: averaging period -> max time range in hours
+      apiLimits: {
+        0: 48,        // Real-time: 2 days max
+        10: 72,       // 10 minutes: 3 days max
+        30: 168,      // 30 minutes: 7 days max
+        60: 336,      // 1 hour: 14 days max
+        360: 2160,    // 6 hours: 90 days max
+        1440: 8760    // 1 day: 365 days (1 year) max
+      },
+      // Available time ranges with labels
+      timeRanges: [
+        { hours: 24, label: "Last 24 hours" },
+        { hours: 48, label: "Last 2 days" },
+        { hours: 72, label: "Last 3 days" },
+        { hours: 168, label: "Last 7 days" },
+        { hours: 336, label: "Last 14 days" },
+        { hours: 720, label: "Last 30 days" },
+        { hours: 2160, label: "Last 90 days" },
+        { hours: 4380, label: "Last 6 months" },
+        { hours: 8760, label: "Last year" }
+      ],
+      // Available averaging periods
+      averagingPeriods: [
+        { minutes: 0, label: "Real-time (no averaging)" },
+        { minutes: 10, label: "10 minutes" },
+        { minutes: 30, label: "30 minutes" },
+        { minutes: 60, label: "1 hour" },
+        { minutes: 360, label: "6 hours" },
+        { minutes: 1440, label: "1 day" }
+      ]
+    };
+
+    // State
+    let chart = null;
+    let allData = new Map();
+    let checkboxes = {};
+
+    // Populate time range dropdown (all options, always available)
+    function initTimeRangeOptions() {
+      const timeRangeSelect = document.getElementById('timeRange');
+      timeRangeSelect.innerHTML = '';
+
+      CONFIG.timeRanges.forEach(range => {
+        const option = document.createElement('option');
+        option.value = range.hours;
+        option.textContent = range.label;
+        timeRangeSelect.appendChild(option);
+      });
+
+      // Set default to 3 days
+      timeRangeSelect.value = 72;
+    }
+
+    // Update averaging period options based on selected time range
+    function updateAveragingOptions() {
+      const timeRangeHours = parseInt(document.getElementById('timeRange').value);
+      const avgSelect = document.getElementById('average');
+      const currentValue = parseInt(avgSelect.value);
+
+      // Clear existing options
+      avgSelect.innerHTML = '';
+
+      // Find which averaging periods support this time range
+      CONFIG.averagingPeriods.forEach(period => {
+        const maxAllowed = CONFIG.apiLimits[period.minutes];
+        const option = document.createElement('option');
+        option.value = period.minutes;
+
+        if (timeRangeHours <= maxAllowed) {
+          // Valid option
+          option.textContent = period.label;
+          option.disabled = false;
+        } else {
+          // Invalid option - grey out
+          option.textContent = `${period.label} (max ${CONFIG.timeRanges.find(r => r.hours === maxAllowed)?.label || maxAllowed + 'hrs'})`;
+          option.disabled = true;
+          option.style.color = '#999';
+        }
+
+        avgSelect.appendChild(option);
+      });
+
+      // Select the first valid option or keep current if valid
+      const firstValid = Array.from(avgSelect.options).find(opt => !opt.disabled);
+      if (currentValue && avgSelect.querySelector(`option[value="${currentValue}"]:not(:disabled)`)) {
+        avgSelect.value = currentValue;
+      } else if (firstValid) {
+        avgSelect.value = firstValid.value;
+      }
+
+      updateApiLimitInfo();
+    }
+
+    // Update the info box with current API limit information
+    function updateApiLimitInfo() {
+      const timeRangeHours = parseInt(document.getElementById('timeRange').value);
+      const avgMinutes = parseInt(document.getElementById('average').value);
+      const infoDiv = document.getElementById('apiLimitInfo');
+
+      const timeRangeLabel = CONFIG.timeRanges.find(r => r.hours === timeRangeHours)?.label || `${timeRangeHours} hours`;
+      const avgLabel = CONFIG.averagingPeriods.find(p => p.minutes === avgMinutes)?.label || `${avgMinutes} minutes`;
+
+      // Build list of valid averaging periods for current time range
+      const validPeriods = CONFIG.averagingPeriods
+        .filter(period => timeRangeHours <= CONFIG.apiLimits[period.minutes])
+        .map(period => period.label);
+
+      infoDiv.innerHTML = `
+        <strong>Current Selection:</strong> ${timeRangeLabel} with ${avgLabel} averaging<br>
+        <strong>Valid averaging periods for ${timeRangeLabel}:</strong> ${validPeriods.join(', ')}
+      `;
+    }
+
+    // Initialize chart
+    function initChart() {
+      const ctx = document.getElementById('mainChart').getContext('2d');
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: { datasets: [] },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            mode: 'index',
+            intersect: false
+          },
+          plugins: {
+            legend: {
+              display: true,
+              position: 'bottom',
+              labels: {
+                usePointStyle: true,
+                padding: 15,
+                font: { size: 11 }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                title: (items) => {
+                  if (items[0]?.parsed?.x) {
+                    return new Date(items[0].parsed.x).toLocaleString();
+                  }
+                  return '';
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              type: 'time',
+              time: {
+                tooltipFormat: 'PPpp'
+              },
+              title: {
+                display: true,
+                text: 'Time'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Value'
+              },
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+
+    // Create toggles UI
+    function createToggles() {
+      const container = document.getElementById('toggles');
+      container.innerHTML = '';
+
+      // Group by sensor
+      CONFIG.sensors.forEach(sensor => {
+        const section = document.createElement('div');
+        section.className = 'toggle-section';
+
+        const title = document.createElement('div');
+        title.className = 'toggle-section-title';
+        title.textContent = sensor.name;
+        section.appendChild(title);
+
+        const grid = document.createElement('div');
+        grid.className = 'toggle-grid';
+
+        CONFIG.fields.forEach(field => {
+          const item = document.createElement('label');
+          item.className = 'toggle-item';
+
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.checked = field.default || false;
+          checkbox.dataset.sensorId = sensor.id;
+          checkbox.dataset.field = field.key;
+
+          const key = `${sensor.id}-${field.key}`;
+          checkboxes[key] = checkbox;
+
+          checkbox.addEventListener('change', updateChart);
+
+          const label = document.createElement('span');
+          label.className = 'toggle-label';
+          label.textContent = `${field.label} (${field.unit})`;
+
+          item.appendChild(checkbox);
+          item.appendChild(label);
+          grid.appendChild(item);
+        });
+
+        section.appendChild(grid);
+        container.appendChild(section);
+      });
+    }
+
+    // Fetch data from PurpleAir API
+    async function fetchSensorHistory(sensor, hours, avgMinutes) {
+      const endTime = Math.floor(Date.now() / 1000) + 60;
+      const startTime = endTime - (hours * 3600);
+
+      const fields = CONFIG.fields.map(f => f.key).join(',');
+      const url = `https://api.purpleair.com/v1/sensors/${sensor.id}/history?` +
+        `fields=${fields}&start_timestamp=${startTime}&end_timestamp=${endTime}&` +
+        `average=${avgMinutes}&read_key=${sensor.readKey}`;
+
+      const response = await fetch(url, {
+        headers: {
+          'X-API-Key': CONFIG.apiKey
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch data for ${sensor.name}: ${response.statusText}`);
+      }
+
+      return response.json();
+    }
+
+    async function fetchCurrentData(sensor) {
+      const fields = CONFIG.fields.map(f => f.key).join(',') + ',last_seen';
+      const url = `https://api.purpleair.com/v1/sensors/${sensor.id}?` +
+        `fields=${fields}&read_key=${sensor.readKey}`;
+
+      const response = await fetch(url, {
+        headers: {
+          'X-API-Key': CONFIG.apiKey
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch current data for ${sensor.name}`);
+      }
+
+      return response.json();
+    }
+
+    // Process API response
+    function processHistoryData(json, sensor) {
+      const fields = json.fields;
+      const data = json.data;
+
+      const timeIndex = fields.indexOf('time_stamp');
+      if (timeIndex === -1) {
+        throw new Error('No timestamp field in response');
+      }
+
+      const processed = {
+        sensor: sensor,
+        times: [],
+        series: {}
+      };
+
+      // Initialize series
+      CONFIG.fields.forEach(field => {
+        processed.series[field.key] = [];
+      });
+
+      // Sort by time
+      const sorted = data.sort((a, b) => a[timeIndex] - b[timeIndex]);
+
+      // Process each row
+      sorted.forEach(row => {
+        const timestamp = new Date(row[timeIndex] * 1000);
+        processed.times.push(timestamp);
+
+        CONFIG.fields.forEach(field => {
+          const fieldIndex = fields.indexOf(field.key);
+          const value = fieldIndex !== -1 ? row[fieldIndex] : null;
+          processed.series[field.key].push(value);
+        });
+      });
+
+      return processed;
+    }
+
+    // Update chart with selected data
+    function updateChart() {
+      if (!chart) return;
+
+      const datasets = [];
+
+      allData.forEach((sensorData, sensorId) => {
+        const sensor = CONFIG.sensors.find(s => s.id === sensorId);
+        if (!sensor) return;
+
+        CONFIG.fields.forEach(field => {
+          const key = `${sensorId}-${field.key}`;
+          const checkbox = checkboxes[key];
+
+          if (!checkbox || !checkbox.checked) return;
+
+          const values = sensorData.series[field.key];
+          if (!values) return;
+
+          const data = sensorData.times.map((time, i) => ({
+            x: time,
+            y: values[i]
+          }));
+
+          datasets.push({
+            label: `${sensor.name} - ${field.label}`,
+            data: data,
+            borderColor: sensor.color,
+            backgroundColor: sensor.color + '20',
+            borderWidth: 2,
+            pointRadius: 0,
+            tension: 0.4,
+            spanGaps: true
+          });
+        });
+      });
+
+      chart.data.datasets = datasets;
+      chart.update('none');
+    }
+
+    // Update current readings display
+    function updateCurrentReadings(currentData) {
+      const container = document.getElementById('currentReadings');
+      container.innerHTML = '';
+
+      CONFIG.sensors.forEach(sensor => {
+        const data = currentData.get(sensor.id);
+        if (!data) return;
+
+        const card = document.createElement('div');
+        card.className = 'reading-card';
+
+        const title = document.createElement('h3');
+        title.textContent = sensor.name;
+        card.appendChild(title);
+
+        const values = document.createElement('div');
+        values.className = 'reading-values';
+
+        CONFIG.fields.forEach(field => {
+          const value = data[field.key];
+          if (value === null || value === undefined) return;
+
+          const row = document.createElement('div');
+          row.className = 'reading-row';
+
+          const label = document.createElement('span');
+          label.className = 'label';
+          label.textContent = `${field.label}:`;
+
+          const val = document.createElement('span');
+          val.className = 'value';
+          val.textContent = `${typeof value === 'number' ? value.toFixed(1) : value} ${field.unit}`;
+
+          row.appendChild(label);
+          row.appendChild(val);
+          values.appendChild(row);
+        });
+
+        card.appendChild(values);
+        container.appendChild(card);
+      });
+    }
+
+    // Download CSV
+    function downloadCSV() {
+      if (allData.size === 0) {
+        alert('No data available to download');
+        return;
+      }
+
+      // Collect all unique timestamps
+      const allTimestamps = new Set();
+      allData.forEach(sensorData => {
+        sensorData.times.forEach(time => {
+          allTimestamps.add(time.getTime());
+        });
+      });
+
+      const sortedTimestamps = Array.from(allTimestamps).sort();
+
+      // Build CSV header
+      const headers = ['timestamp', 'datetime'];
+      CONFIG.sensors.forEach(sensor => {
+        CONFIG.fields.forEach(field => {
+          headers.push(`${sensor.name}_${field.key}`);
+        });
+      });
+
+      // Build CSV rows
+      const rows = [headers.join(',')];
+
+      sortedTimestamps.forEach(timestamp => {
+        const row = [
+          Math.floor(timestamp / 1000),
+          new Date(timestamp).toISOString()
+        ];
+
+        CONFIG.sensors.forEach(sensor => {
+          const sensorData = allData.get(sensor.id);
+          CONFIG.fields.forEach(field => {
+            let value = '';
+            if (sensorData) {
+              const timeIndex = sensorData.times.findIndex(t =>
+                Math.abs(t.getTime() - timestamp) < 1000
+              );
+              if (timeIndex >= 0) {
+                const val = sensorData.series[field.key][timeIndex];
+                value = val !== null && val !== undefined ? val : '';
+              }
+            }
+            row.push(value);
+          });
+        });
+
+        rows.push(row.join(','));
+      });
+
+      // Create and download file
+      const csv = rows.join('\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+
+      const now = new Date();
+      const dateStr = now.toISOString().split('T')[0];
+      link.download = `purpleair_data_${dateStr}.csv`;
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    // Bulk download with looped API calls for high-resolution data
+    let bulkDownloadCancelled = false;
+
+    async function bulkDownloadDetailed() {
+      const days = parseInt(document.getElementById('bulkTimeRange').value);
+      const avgMinutes = 10; // Fixed at 10-minute resolution
+      const chunkHours = 72; // 3 days per API call (max for 10-min averaging)
+
+      // Show modal
+      document.getElementById('bulkDownloadModal').style.display = 'flex';
+      document.getElementById('bulkDownloadProgress').style.display = 'block';
+      document.getElementById('bulkDownloadStart').disabled = true;
+      document.getElementById('bulkTimeRange').disabled = true;
+      bulkDownloadCancelled = false;
+
+      try {
+        const endTime = Math.floor(Date.now() / 1000);
+        const startTime = endTime - (days * 24 * 3600);
+        const totalChunks = Math.ceil((days * 24) / chunkHours);
+
+        // Store all data chunks
+        const allChunksData = new Map();
+        CONFIG.sensors.forEach(sensor => {
+          allChunksData.set(sensor.id, { times: [], series: {} });
+          CONFIG.fields.forEach(field => {
+            allChunksData.get(sensor.id).series[field.key] = [];
+          });
+        });
+
+        let completedChunks = 0;
+
+        // Process each sensor
+        for (let sensorIndex = 0; sensorIndex < CONFIG.sensors.length; sensorIndex++) {
+          if (bulkDownloadCancelled) break;
+
+          const sensor = CONFIG.sensors[sensorIndex];
+          updateBulkProgress(completedChunks, totalChunks * CONFIG.sensors.length,
+            `Downloading ${sensor.name}...`);
+
+          // Download in chunks
+          for (let chunkStart = startTime; chunkStart < endTime; chunkStart += chunkHours * 3600) {
+            if (bulkDownloadCancelled) break;
+
+            const chunkEnd = Math.min(chunkStart + chunkHours * 3600, endTime);
+
+            try {
+              // Add small delay to respect API rate limits
+              if (completedChunks > 0) {
+                await new Promise(resolve => setTimeout(resolve, 1000));
+              }
+
+              const url = `https://api.purpleair.com/v1/sensors/${sensor.id}/history?` +
+                `fields=${CONFIG.fields.map(f => f.key).join(',')}&` +
+                `start_timestamp=${chunkStart}&end_timestamp=${chunkEnd}&` +
+                `average=${avgMinutes}&read_key=${sensor.readKey}`;
+
+              const response = await fetch(url, {
+                headers: { 'X-API-Key': CONFIG.apiKey }
+              });
+
+              if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+              }
+
+              const json = await response.json();
+              const processed = processHistoryData(json, sensor);
+
+              // Merge data
+              const sensorData = allChunksData.get(sensor.id);
+              processed.times.forEach((time, i) => {
+                sensorData.times.push(time);
+                CONFIG.fields.forEach(field => {
+                  sensorData.series[field.key].push(processed.series[field.key][i]);
+                });
+              });
+
+              completedChunks++;
+              updateBulkProgress(completedChunks, totalChunks * CONFIG.sensors.length,
+                `Downloading ${sensor.name}... (chunk ${completedChunks % totalChunks + 1}/${totalChunks})`);
+
+            } catch (err) {
+              console.error(`Error fetching chunk for ${sensor.name}:`, err);
+              // Continue with next chunk
+            }
+          }
+        }
+
+        if (bulkDownloadCancelled) {
+          updateBulkProgress(0, 100, 'Download cancelled');
+          setTimeout(() => closeBulkModal(), 2000);
+          return;
+        }
+
+        // Generate CSV
+        updateBulkProgress(100, 100, 'Generating CSV file...');
+
+        const allTimestamps = new Set();
+        allChunksData.forEach(data => {
+          data.times.forEach(t => allTimestamps.add(t.getTime()));
+        });
+
+        const sortedTimestamps = Array.from(allTimestamps).sort();
+
+        // Build CSV
+        const headers = ['timestamp', 'datetime'];
+        CONFIG.sensors.forEach(sensor => {
+          CONFIG.fields.forEach(field => {
+            headers.push(`${sensor.name}_${field.key}`);
+          });
+        });
+
+        const rows = [headers.join(',')];
+
+        sortedTimestamps.forEach(timestamp => {
+          const row = [
+            Math.floor(timestamp / 1000),
+            new Date(timestamp).toISOString()
+          ];
+
+          CONFIG.sensors.forEach(sensor => {
+            const sensorData = allChunksData.get(sensor.id);
+            CONFIG.fields.forEach(field => {
+              let value = '';
+              if (sensorData) {
+                const timeIndex = sensorData.times.findIndex(t =>
+                  Math.abs(t.getTime() - timestamp) < 1000
+                );
+                if (timeIndex >= 0) {
+                  const val = sensorData.series[field.key][timeIndex];
+                  value = val !== null && val !== undefined ? val : '';
+                }
+              }
+              row.push(value);
+            });
+          });
+
+          rows.push(row.join(','));
+        });
+
+        // Download file
+        const csv = rows.join('\n');
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        const now = new Date();
+        const dateStr = now.toISOString().split('T')[0];
+        link.download = `purpleair_detailed_${days}days_10min_${dateStr}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+
+        updateBulkProgress(100, 100, `Complete! Downloaded ${sortedTimestamps.length} data points.`);
+        setTimeout(() => closeBulkModal(), 3000);
+
+      } catch (error) {
+        console.error('Bulk download error:', error);
+        updateBulkProgress(0, 100, `Error: ${error.message}`);
+        setTimeout(() => closeBulkModal(), 3000);
+      } finally {
+        document.getElementById('bulkDownloadStart').disabled = false;
+        document.getElementById('bulkTimeRange').disabled = false;
+      }
+    }
+
+    function updateBulkProgress(current, total, status) {
+      const percent = Math.round((current / total) * 100);
+      document.getElementById('bulkProgressBar').style.width = percent + '%';
+      document.getElementById('bulkProgressText').textContent = percent + '%';
+      document.getElementById('bulkProgressStatus').textContent = status;
+    }
+
+    function closeBulkModal() {
+      document.getElementById('bulkDownloadModal').style.display = 'none';
+      document.getElementById('bulkDownloadProgress').style.display = 'none';
+      document.getElementById('bulkProgressBar').style.width = '0%';
+      document.getElementById('bulkProgressText').textContent = '0%';
+      document.getElementById('bulkProgressStatus').textContent = '';
+    }
+
+    // Main refresh function
+    async function refreshData() {
+      const refreshBtn = document.getElementById('refreshBtn');
+      const downloadBtn = document.getElementById('downloadBtn');
+      const statusEl = document.getElementById('lastUpdate');
+
+      refreshBtn.disabled = true;
+      downloadBtn.disabled = true;
+      statusEl.textContent = 'Loading data...';
+
+      try {
+        const hours = parseInt(document.getElementById('timeRange').value);
+        const avgMinutes = parseInt(document.getElementById('average').value);
+
+        // Fetch all sensor data in parallel with individual error handling
+        const historyPromises = CONFIG.sensors.map(sensor =>
+          fetchSensorHistory(sensor, hours, avgMinutes)
+            .catch(err => {
+              console.error(`Failed to fetch history for ${sensor.name}:`, err);
+              return null;
+            })
+        );
+
+        const currentPromises = CONFIG.sensors.map(sensor =>
+          fetchCurrentData(sensor)
+            .catch(err => {
+              console.error(`Failed to fetch current data for ${sensor.name}:`, err);
+              return null;
+            })
+        );
+
+        const [historyResults, currentResults] = await Promise.all([
+          Promise.all(historyPromises),
+          Promise.all(currentPromises)
+        ]);
+
+        // Process history data
+        allData.clear();
+        let successCount = 0;
+        historyResults.forEach((json, index) => {
+          if (!json) return; // Skip failed fetches
+
+          const sensor = CONFIG.sensors[index];
+          try {
+            const processed = processHistoryData(json, sensor);
+            allData.set(sensor.id, processed);
+            successCount++;
+          } catch (err) {
+            console.error(`Failed to process history for ${sensor.name}:`, err);
+          }
+        });
+
+        // Process current data
+        const currentData = new Map();
+        currentResults.forEach((json, index) => {
+          if (!json) return; // Skip failed fetches
+
+          const sensor = CONFIG.sensors[index];
+
+          try {
+            // Handle different response formats
+            if (json.sensor) {
+              // Format: { sensor: { field: value } }
+              currentData.set(sensor.id, json.sensor);
+            } else if (json.fields && json.data && json.data.length > 0) {
+              // Format: { fields: [...], data: [[...]] }
+              const fields = json.fields;
+              const data = json.data[0];
+              const currentValues = {};
+              fields.forEach((field, i) => {
+                currentValues[field] = data[i];
+              });
+              currentData.set(sensor.id, currentValues);
+            } else {
+              console.warn(`Unexpected format for sensor ${sensor.name}:`, json);
+            }
+          } catch (err) {
+            console.error(`Failed to process current data for ${sensor.name}:`, err);
+          }
+        });
+
+        // Update displays
+        updateChart();
+        updateCurrentReadings(currentData);
+
+        downloadBtn.disabled = allData.size === 0;
+
+        if (successCount === CONFIG.sensors.length) {
+          statusEl.textContent = `Last updated: ${new Date().toLocaleString()}`;
+        } else if (successCount > 0) {
+          statusEl.textContent = `Partial update: ${successCount}/${CONFIG.sensors.length} sensors loaded at ${new Date().toLocaleString()}`;
+        } else {
+          statusEl.textContent = 'Failed to load sensor data';
+        }
+
+      } catch (error) {
+        console.error('Error refreshing data:', error);
+        statusEl.textContent = `Error: ${error.message}`;
+      } finally {
+        refreshBtn.disabled = false;
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize dropdowns first
+      initTimeRangeOptions();
+      updateAveragingOptions();
+
+      initChart();
+      createToggles();
+      refreshData();
+
+      // Event listeners
+      document.getElementById('refreshBtn').addEventListener('click', refreshData);
+      document.getElementById('timeRange').addEventListener('change', () => {
+        updateAveragingOptions();
+        refreshData();
+      });
+      document.getElementById('average').addEventListener('change', () => {
+        updateApiLimitInfo();
+        refreshData();
+      });
+      document.getElementById('downloadBtn').addEventListener('click', downloadCSV);
+
+      // Bulk download modal listeners
+      document.getElementById('bulkDownloadBtn').addEventListener('click', () => {
+        document.getElementById('bulkDownloadModal').style.display = 'flex';
+      });
+      document.getElementById('bulkDownloadCancel').addEventListener('click', () => {
+        bulkDownloadCancelled = true;
+        closeBulkModal();
+      });
+      document.getElementById('bulkDownloadStart').addEventListener('click', bulkDownloadDetailed);
+    });
+  </script>
+</body>
+</html>
