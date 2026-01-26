@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Pastor Dave to Other Christian AI Apps</title>
+    <style>
+        :root {
+            --primary-color: #2c5f7f;
+            --secondary-color: #4a7c9e;
+            --accent-color: #e67e22;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-gray: #495057;
+            --text-color: #212529;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Section */
+        .compare-header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .compare-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .compare-header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 30px;
+            padding: 0 20px;
+        }
+
+        .filter-tab {
+            padding: 10px 20px;
+            background-color: var(--light-gray);
+            border: 2px solid var(--medium-gray);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .filter-tab:hover {
+            background-color: var(--medium-gray);
+            transform: translateY(-2px);
+        }
+
+        .filter-tab.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Quick Summary Cards */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .summary-card {
+            background: white;
+            border: 2px solid var(--medium-gray);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .summary-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .summary-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .summary-card p {
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+        }
+
+        /* Comparison Table */
+        .table-wrapper {
+            overflow-x: auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+
+        .comparison-table thead {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+        }
+
+        .comparison-table th {
+            padding: 20px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        .comparison-table th:first-child {
+            border-top-left-radius: 12px;
+            width: 200px;
+        }
+
+        .comparison-table th:last-child {
+            border-top-right-radius: 12px;
+        }
+
+        .comparison-table th.highlight {
+            background-color: var(--accent-color);
+            position: relative;
+        }
+
+        .comparison-table th.highlight::after {
+            content: "⭐ YOUR CHOICE";
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+
+        .comparison-table tbody tr {
+            border-bottom: 1px solid var(--medium-gray);
+            transition: background-color 0.2s ease;
+        }
+
+        .comparison-table tbody tr:hover {
+            background-color: var(--light-gray);
+        }
+
+        .comparison-table td {
+            padding: 18px 15px;
+            font-size: 0.9rem;
+        }
+
+        .comparison-table td:first-child {
+            font-weight: 600;
+            color: var(--primary-color);
+            background-color: var(--light-gray);
+        }
+
+        .comparison-table td.highlight {
+            background-color: #fff8e1;
+            font-weight: 500;
+        }
+
+        /* Feature Icons */
+        .feature-yes {
+            color: var(--success-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .feature-yes::before {
+            content: "✓ ";
+        }
+
+        .feature-no {
+            color: var(--danger-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .feature-no::before {
+            content: "✗ ";
+        }
+
+        .feature-partial {
+            color: var(--warning-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .feature-partial::before {
+            content: "⚠ ";
+        }
+
+        /* Category Headers */
+        .category-row {
+            background: linear-gradient(90deg, var(--light-gray) 0%, white 100%);
+        }
+
+        .category-row td {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            padding: 25px 15px;
+            border-top: 3px solid var(--primary-color);
+        }
+
+        /* Pricing Display */
+        .price {
+            font-weight: 700;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        .price.free {
+            color: var(--success-color);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 60px 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .cta-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 40px;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            background-color: #d35400;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Competitive Advantages */
+        .advantages-section {
+            padding: 60px 20px;
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+
+        .advantages-section h2 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .advantage-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 5px solid var(--accent-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .advantage-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .advantage-card .number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .advantage-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .advantage-card p {
+            color: var(--dark-gray);
+            line-height: 1.7;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .compare-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .compare-header p {
+                font-size: 1rem;
+            }
+
+            .summary-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .table-wrapper {
+                border-radius: 8px;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 12px 8px;
+                font-size: 0.85rem;
+            }
+
+            .cta-section h2 {
+                font-size: 1.6rem;
+            }
+
+            .cta-section p {
+                font-size: 1rem;
+            }
+
+            .advantages-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Tooltip for additional info */
+        .info-tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-left: 5px;
+        }
+
+        .info-tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .legend-icon {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="compare-header">
+            <h1>Compare Pastor Dave to Other Christian AI Apps</h1>
+            <p>See why Pastor Dave is the only AI that coaches your evangelism—not just answers questions</p>
+        </div>
+
+        <!-- Quick Summary Cards -->
+        <div class="summary-cards">
+            <div class="summary-card">
+                <div class="icon">🎯</div>
+                <h3>Unique Focus</h3>
+                <p>Only app with evangelism role-play + AI coaching feedback</p>
+            </div>
+            <div class="summary-card">
+                <div class="icon">💰</div>
+                <h3>Best Value</h3>
+                <p>Full features available free (donation-supported)</p>
+            </div>
+            <div class="summary-card">
+                <div class="icon">📞</div>
+                <h3>Most Accessible</h3>
+                <p>Only faith AI with phone access + voice chat</p>
+            </div>
+            <div class="summary-card">
+                <div class="icon">⛪</div>
+                <h3>Clear Identity</h3>
+                <p>Grounded in Wesleyan/Global Methodist tradition</p>
+            </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="filter-tabs">
+            <button class="filter-tab active" onclick="showAllRows()">Show All Features</button>
+            <button class="filter-tab" onclick="filterCategory('evangelism')">Evangelism Only</button>
+            <button class="filter-tab" onclick="filterCategory('study')">Study Features</button>
+            <button class="filter-tab" onclick="filterCategory('access')">Accessibility</button>
+            <button class="filter-tab" onclick="filterCategory('pricing')">Pricing</button>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-item">
+                <span class="legend-icon" style="color: var(--success-color);">✓</span>
+                <span>Full Feature</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-icon" style="color: var(--warning-color);">⚠</span>
+                <span>Partial/Limited</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-icon" style="color: var(--danger-color);">✗</span>
+                <span>Not Available</span>
+            </div>
+        </div>
+
+        <!-- Main Comparison Table -->
+        <div class="table-wrapper">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th class="highlight">Pastor Dave</th>
+                        <th>Bible Chat</th>
+                        <th>Text With Jesus</th>
+                        <th>JesusBot</th>
+                        <th>Gloo AI</th>
+                        <th>Hallow</th>
+                        <th>NAMB Share Gospel</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- EVANGELISM CATEGORY -->
+                    <tr class="category-row" data-category="evangelism">
+                        <td colspan="8">🎭 EVANGELISM & PRACTICE</td>
+                    </tr>
+                    <tr data-category="evangelism">
+                        <td>Evangelism Role-Play</td>
+                        <td class="highlight"><span class="feature-yes">Yes</span> Multiple personas</td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-yes">Yes</span> Basic</td>
+                    </tr>
+                    <tr data-category="evangelism">
+                        <td>AI Coaching & Feedback</td>
+                        <td class="highlight"><span class="feature-yes">Yes</span> Real-time coaching</td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                    </tr>
+                    <tr data-category="evangelism">
+                        <td>Persona Variety</td>
+                        <td class="highlight"><span class="feature-yes">Yes</span> Atheist, seeker, skeptic, hurt</td>
+                        <td><span class="feature-no">N/A</span></td>
+                        <td><span class="feature-no">N/A</span></td>
+                        <td><span class="feature-no">N/A</span></td>
+                        <td><span class="feature-no">N/A</span></td>
+                        <td><span class="feature-no">N/A</span></td>
+                        <td><span class="feature-partial">Limited</span> Basic personas</td>
+                    </tr>
+
+                    <!-- BIBLE STUDY CATEGORY -->
+                    <tr class="category-row" data-category="study">
+                        <td colspan="8">📖 BIBLE STUDY & THEOLOGY</td>
+                    </tr>
+                    <tr data-category="study">
+                        <td>Biblical Q&A</td>
+                        <td class="highlight"><span class="feature-yes">Yes</span> Pastoral style</td>
+                        <td><span class="feature-yes">Yes</span> Academic style</td>
+                        <td><span class="feature-yes">Yes</span> Conversational</td>
+                        <td><span class="feature-yes">Yes</span> Devotional</td>
+                        <td><span class="feature-yes">Yes</span> Customizable</td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                    </tr>
+                    <tr data-category="study">
+                        <td>Theological Tradition</td>
+                        <td class="highlight">Wesleyan/GMC</td>
+                        <td>Generic Evangelical</td>
+                        <td>Generic Christian</td>
+                        <td>Generic Christian</td>
+                        <td>User-defined</td>
+                        <td>Catholic</td>
+                        <td>Southern Baptist</td>
+                    </tr>
+                    <tr data-category="study">
+                        <td>Multiple Bible Versions</td>
+                        <td class="highlight"><span class="feature-yes">Yes</span> Standard translations</td>
+                        <td><span class="feature-yes">Yes</span> NIV, KJV, ESV, NLT</td>
+                        <td><span class="feature-partial">Limited</span></td>
+                        <td><span class="feature-partial">Limited</span></td>
+                        <td><span class="feature-yes">Yes</span> Customizable</td>
+                        <td><span class="feature-yes">Yes</span> Mass readings</td>
+                        <td><span class="feature-no">No</span></td>
+                    </tr>
+                    <tr data-category="study">
+                        <td>Study Plans</td>
+                        <td class="highlight"><span class="feature-partial">Coming soon</span></td>
+                        <td><span class="feature-yes">Yes</span> Extensive library</td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-yes">Yes</span> Custom content</td>
+                        <td><span class="feature-yes">Yes</span> Prayer plans</td>
+                        <td><span class="feature-no">No</span></td>
+                    </tr>
+                    <tr data-category="study">
+                        <td>Bible Trivia/Games</td>
+                        <td class="highlight"><span class="feature-no">No</span></td>
+                        <td><span class="feature-yes">Yes</span> Multiple games</td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                    </tr>
+
+                    <!-- ACCESSIBILITY CATEGORY -->
+                    <tr class="category-row" data-category="access">
+                        <td colspan="8">🌐 ACCESSIBILITY & INTERFACE</td>
+                    </tr>
+                    <tr data-category="access">
+                        <td>Web Access</td>
+                        <td class="highlight"><span class="feature-yes">Yes</span></td>
+                        <td><span class="feature-yes">Yes</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-yes">Yes</span></td>
+                        <td><span class="feature-yes">Yes</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-yes">Yes</span></td>
+                    </tr>
+                    <tr data-category="access">
+                        <td>Mobile App</td>
+                        <td class="highlight"><span class="feature-yes">Yes</span> PWA (installable)</td>
+                        <td><span class="feature-yes">Yes</span> iOS/Android</td>
+                        <td><span class="feature-yes">Yes</span> iOS/Android</td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-partial">Embedded</span></td>
+                        <td><span class="feature-yes">Yes</span> iOS/Android</td>
+                        <td><span class="feature-no">No</span></td>
+                    </tr>
+                    <tr data-category="access">
+                        <td>Voice Chat</td>
+                        <td class="highlight"><span class="feature-yes">Yes</span> Full voice interface</td>
+                        <td><span class="feature-partial">Premium only</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-yes">Yes</span> Audio prayers</td>
+                        <td><span class="feature-no">No</span></td>
+                    </tr>
+                    <tr data-category="access">
+                        <td>Phone Access</td>
+                        <td class="highlight"><span class="feature-yes">Yes</span> 833-951-1302</td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                    </tr>
+                    <tr data-category="access">
+                        <td>Offline Access</td>
+                        <td class="highlight"><span class="feature-partial">PWA cache</span></td>
+                        <td><span class="feature-yes">Yes</span></td>
+                        <td><span class="feature-partial">Unknown</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-yes">Yes</span></td>
+                        <td><span class="feature-no">No</span></td>
+                    </tr>
+
+                    <!-- PRICING CATEGORY -->
+                    <tr class="category-row" data-category="pricing">
+                        <td colspan="8">💰 PRICING & VALUE</td>
+                    </tr>
+                    <tr data-category="pricing">
+                        <td>Free Tier</td>
+                        <td class="highlight"><span class="price free">Full Access Free</span></td>
+                        <td><span class="feature-partial">Limited AI chats</span></td>
+                        <td><span class="feature-yes">Free with account</span></td>
+                        <td><span class="feature-no">No free tier</span></td>
+                        <td><span class="feature-yes">500 msgs/mo free</span></td>
+                        <td><span class="feature-partial">Limited content</span></td>
+                        <td><span class="price free">Completely Free</span></td>
+                    </tr>
+                    <tr data-category="pricing">
+                        <td>Paid Monthly Price</td>
+                        <td class="highlight"><span class="price free">$0 (Donations welcome)</span></td>
+                        <td><span class="price">$12.99</span></td>
+                        <td><span class="price free">$0</span></td>
+                        <td><span class="price">$3-9</span></td>
+                        <td><span class="price">$49</span> (church)</td>
+                        <td><span class="price">$10.99</span></td>
+                        <td><span class="price free">$0</span></td>
+                    </tr>
+                    <tr data-category="pricing">
+                        <td>Annual Cost</td>
+                        <td class="highlight"><span class="price free">$0-84 (optional)</span></td>
+                        <td><span class="price">$59.99</span></td>
+                        <td><span class="price free">$0</span></td>
+                        <td><span class="price">$36-108</span></td>
+                        <td><span class="price">$499-588</span></td>
+                        <td><span class="price">$69.99</span></td>
+                        <td><span class="price free">$0</span></td>
+                    </tr>
+                    <tr data-category="pricing">
+                        <td>Best Value For</td>
+                        <td class="highlight">Evangelism practice + discipleship</td>
+                        <td>Bible study enthusiasts</td>
+                        <td>Casual exploration</td>
+                        <td>Daily devotionals</td>
+                        <td>Church administration</td>
+                        <td>Catholic prayer life</td>
+                        <td>SBC evangelism training</td>
+                    </tr>
+
+                    <!-- ADDITIONAL FEATURES -->
+                    <tr class="category-row">
+                        <td colspan="8">✨ ADDITIONAL FEATURES</td>
+                    </tr>
+                    <tr>
+                        <td>Small Group Support</td>
+                        <td class="highlight"><span class="feature-yes">Yes</span> Discussion help</td>
+                        <td><span class="feature-yes">Yes</span> Study tools</td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-yes">Yes</span> Church groups</td>
+                        <td><span class="feature-partial">Prayer groups</span></td>
+                        <td><span class="feature-no">No</span></td>
+                    </tr>
+                    <tr>
+                        <td>Prayer Support</td>
+                        <td class="highlight"><span class="feature-yes">Yes</span> Pastoral guidance</td>
+                        <td><span class="feature-yes">Yes</span> Prayer wall</td>
+                        <td><span class="feature-yes">Yes</span> Prayer requests</td>
+                        <td><span class="feature-yes">Yes</span> Daily prayers</td>
+                        <td><span class="feature-yes">Yes</span></td>
+                        <td><span class="feature-yes">Yes</span> Primary focus</td>
+                        <td><span class="feature-no">No</span></td>
+                    </tr>
+                    <tr>
+                        <td>Community Features</td>
+                        <td class="highlight"><span class="feature-partial">Coming soon</span></td>
+                        <td><span class="feature-yes">Yes</span> Prayer wall</td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-yes">Yes</span> Church-based</td>
+                        <td><span class="feature-yes">Yes</span> Group prayers</td>
+                        <td><span class="feature-no">No</span></td>
+                    </tr>
+                    <tr>
+                        <td>Content Customization</td>
+                        <td class="highlight"><span class="feature-no">No</span> Fixed theology</td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-yes">Yes</span> Train on sermons</td>
+                        <td><span class="feature-no">No</span></td>
+                        <td><span class="feature-no">No</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Competitive Advantages Section -->
+        <div class="advantages-section">
+            <h2>Why Pastor Dave Stands Out</h2>
+            <div class="advantages-grid">
+                <div class="advantage-card">
+                    <div class="number">1</div>
+                    <h3>The Only AI Evangelism Coach</h3>
+                    <p>Pastor Dave doesn't just answer questions—he creates realistic role-play scenarios and provides real-time feedback on your evangelism conversations. Practice with an atheist, a seeker, a skeptic, or someone hurt by the church, then receive coaching on clarity, grace, and winsomeness.</p>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="number">2</div>
+                    <h3>Most Accessible Platform</h3>
+                    <p>The only Christian AI accessible by voice chat, text chat, AND traditional phone call (833-951-1302). Perfect for elderly believers, those without smartphones, or anyone who prefers voice conversations over typing.</p>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="number">3</div>
+                    <h3>Clear Theological Identity</h3>
+                    <p>Grounded in Wesleyan/Global Methodist tradition—not generic "Christian." You know exactly what theological framework guides every response, providing consistency and doctrinal integrity.</p>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="number">4</div>
+                    <h3>Best Value for Full Features</h3>
+                    <p>While competitors charge $60-120/year and limit features behind paywalls, Pastor Dave offers full access completely free (donation-supported). No credit card required, no subscription pressure, no feature limitations.</p>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="number">5</div>
+                    <h3>Dual-Mode Intelligence</h3>
+                    <p>Seamlessly switches between evangelism practice and pastoral Q&A. One moment you're practicing a gospel conversation, the next you're getting deep theological guidance—all in the same conversation flow.</p>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="number">6</div>
+                    <h3>Ministry-Focused Mission</h3>
+                    <p>Not venture-backed or profit-driven. Built by a believer for believers, focused on equipping the church for gospel conversations—not maximizing shareholder returns.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="cta-section">
+            <h2>Ready to Practice Sharing Your Faith?</h2>
+            <p>Join hundreds of believers using Pastor Dave to grow in confidence and clarity</p>
+            <a href="/" class="cta-button">Start a Conversation →</a>
+        </div>
+    </div>
+
+    <script>
+        // Filter functionality
+        function showAllRows() {
+            const rows = document.querySelectorAll('.comparison-table tbody tr');
+            rows.forEach(row => row.style.display = '');
+            
+            // Update active tab
+            document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function filterCategory(category) {
+            const rows = document.querySelectorAll('.comparison-table tbody tr');
+            
+            rows.forEach(row => {
+                const rowCategory = row.getAttribute('data-category');
+                if (rowCategory === category || row.classList.contains('category-row')) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            
+            // Update active tab
+            document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Highlight current app column on hover
+        const table = document.querySelector('.comparison-table');
+        if (table) {
+            let currentHighlight = null;
+            
+            table.addEventListener('mouseover', (e) => {
+                const cell = e.target.closest('td, th');
+                if (!cell) return;
+                
+                const cellIndex = Array.from(cell.parentElement.children).indexOf(cell);
+                
+                // Remove previous highlight
+                if (currentHighlight !== null) {
+                    document.querySelectorAll(`.comparison-table td:nth-child(${currentHighlight + 1}), .comparison-table th:nth-child(${currentHighlight + 1})`).forEach(c => {
+                        if (!c.classList.contains('highlight')) {
+                            c.style.backgroundColor = '';
+                        }
+                    });
+                }
+                
+                // Add new highlight
+                if (cellIndex > 0) {  // Don't highlight first column
+                    document.querySelectorAll(`.comparison-table td:nth-child(${cellIndex + 1}), .comparison-table th:nth-child(${cellIndex + 1})`).forEach(c => {
+                        if (!c.classList.contains('highlight')) {
+                            c.style.backgroundColor = '#f0f7ff';
+                        }
+                    });
+                    currentHighlight = cellIndex;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
