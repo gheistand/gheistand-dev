@@ -1,221 +1,809 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Glenn Heistand - Project Portfolio</title>
-<style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .container {
-            background: white;
-            border-radius: 20px;
-            padding: 50px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 600px;
-            width: 100%;
-        }
-        
-        h1 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 2.5em;
-        }
-        
-        .subtitle {
-            color: #666;
-            margin-bottom: 40px;
-            font-size: 1.1em;
-        }
-        
-        .dropdown-section {
-            margin-bottom: 40px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 10px;
-            color: #555;
-            font-weight: 600;
-        }
-        
-        select {
-            width: 100%;
-            padding: 15px;
-            font-size: 16px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            background: white;
-            cursor: pointer;
-            transition: border-color 0.3s;
-        }
-        
-        select:hover, select:focus {
-            border-color: #667eea;
-            outline: none;
-        }
-        
-        .button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            margin-top: 15px;
-        }
-        
-        .button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
-        }
-        
-        .divider {
-            text-align: center;
-            margin: 40px 0;
-            color: #999;
-            position: relative;
-        }
-        
-        .divider::before,
-        .divider::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 40%;
-            height: 1px;
-            background: #ddd;
-        }
-        
-        .divider::before {
-            left: 0;
-        }
-        
-        .divider::after {
-            right: 0;
-        }
-        
-        .project-links {
-            display: grid;
-            gap: 15px;
-        }
-        
-        .project-link {
-            display: block;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            text-decoration: none;
-            color: #333;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-        }
-        
-        .project-link:hover {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-            transform: translateX(5px);
-        }
-        
-        .project-title {
-            font-weight: 600;
-            font-size: 1.1em;
-            margin-bottom: 5px;
-        }
-        
-        .project-desc {
-            font-size: 0.9em;
-            opacity: 0.8;
-        }
-    </style>
-<script>
-                window.load_data_from_csv = (filename) => {
-                    // Implementation needed when code is downloaded
-                };
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glenn Heistand — Water Resources Engineer & AI Builder</title>
+  <meta name="description" content="Glenn Heistand — Water resources engineer, floodplain manager, and AI toolbuilder. CHAMP, BaseFlood Engineering, Reep Works.">
+  <meta name="robots" content="noindex, nofollow">
 
-                window.save_data_to_csv = (filename, data) => {
-                    // Implementation needed when code is downloaded
-                };
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-                window.call_llm = (system_prompt, user_messages, json_fields) => {
-                    // Implementation needed when code is downloaded
-                };
-            </script></head>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #1a3a5c;
+      --blue:      #1e72b8;
+      --blue-lt:   #2e8bcb;
+      --blue-dim:  #0f2d4a;
+      --bg:        #0d1b2a;
+      --bg-card:   #0f2236;
+      --bg-elevated:#132840;
+      --border:    rgba(30,114,184,0.20);
+      --border-acc:rgba(30,114,184,0.45);
+      --text:      #e8f0f8;
+      --text-sec:  #8da8c4;
+      --text-muted:#4d6b87;
+      --accent:    #1e72b8;
+      --accent-br: #2e8bcb;
+      --white:     #ffffff;
+      --radius:    12px;
+      --radius-sm: 8px;
+      --font-head: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+      --font-body: 'Inter', 'Segoe UI', Arial, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 2rem;
+      background: rgba(13,27,42,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-name {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+
+    .nav-name span { color: var(--blue-lt); }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-sec);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section { padding: 5rem 0; }
+
+    /* ── Hero ── */
+    #hero {
+      padding: 8rem 0 5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue-lt);
+      margin-bottom: 1rem;
+    }
+
+    .hero-name {
+      font-family: var(--font-head);
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-size: 1.15rem;
+      color: var(--text-sec);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--text-sec);
+      max-width: 540px;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      background: rgba(30,114,184,0.15);
+      border: 1px solid var(--border-acc);
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--blue-lt);
+      letter-spacing: 0.02em;
+    }
+
+    .hero-wave {
+      opacity: 0.18;
+    }
+
+    .hero-wave svg { width: 160px; height: auto; }
+
+    /* ── Section Headings ── */
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue-lt);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      color: var(--text-sec);
+      max-width: 580px;
+      line-height: 1.65;
+      margin-bottom: 3rem;
+    }
+
+    /* ── About ── */
+    #about { border-bottom: 1px solid var(--border); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--text-sec);
+      line-height: 1.75;
+      margin-bottom: 1rem;
+      font-size: 0.97rem;
+    }
+
+    .about-text p:last-child { margin-bottom: 0; }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem 1.2rem;
+    }
+
+    .stat-num {
+      font-family: var(--font-head);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--blue-lt);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-sec);
+      line-height: 1.35;
+    }
+
+    /* ── Projects / Cards ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-br));
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--border-acc);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(30,114,184,0.18);
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--white);
+      margin-bottom: 0.45rem;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--text-sec);
+      line-height: 1.55;
+      flex: 1;
+      margin-bottom: 1.1rem;
+    }
+
+    .card-tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.18rem 0.55rem;
+      border-radius: 4px;
+      background: rgba(30,114,184,0.12);
+      color: var(--text-sec);
+      border: 1px solid var(--border);
+    }
+
+    .tag-ext {
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.18rem 0.55rem;
+      border-radius: 4px;
+      color: var(--blue-lt);
+      background: rgba(30,114,184,0.08);
+      border: 1px solid var(--border-acc);
+    }
+
+    /* ── Ventures ── */
+    #ventures { border-bottom: 1px solid var(--border); }
+
+    .venture-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .venture-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .venture-card:hover {
+      border-color: var(--border-acc);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 40px rgba(30,114,184,0.2);
+    }
+
+    .venture-logo {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .venture-logo .base { color: var(--navy); color: #4e86b8; }
+    .venture-logo .flood { color: var(--blue-lt); }
+    .venture-logo .reep { color: #38bdf8; }
+    .venture-logo .works { color: var(--text-sec); }
+
+    .venture-tagline {
+      font-size: 0.88rem;
+      color: var(--text-sec);
+      line-height: 1.55;
+    }
+
+    .venture-url {
+      font-size: 0.8rem;
+      color: var(--blue-lt);
+      font-weight: 500;
+      margin-top: auto;
+    }
+
+    /* ── Writing / Roles ── */
+    #roles { border-bottom: 1px solid var(--border); }
+
+    .role-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .role-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 1rem;
+      padding: 1.1rem 1.4rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+
+    .role-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+
+    .role-org {
+      font-size: 0.85rem;
+      color: var(--text-sec);
+    }
+
+    .role-year {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      white-space: nowrap;
+      margin-top: 0.2rem;
+    }
+
+    /* ── Contact / Footer ── */
+    #contact {
+      text-align: center;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.4rem;
+      border: 1px solid var(--border-acc);
+      border-radius: var(--radius-sm);
+      color: var(--blue-lt);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .contact-link:hover {
+      background: rgba(30,114,184,0.15);
+      color: var(--white);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.8rem 0;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-wave { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .venture-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
 <body>
-<div class="container">
-<h1>Glenn Heistand</h1>
-<p class="subtitle">Web Development Portfolio</p>
-<div class="dropdown-section">
-<label for="projectSelect">Select a Project:</label>
-<select id="projectSelect">
-<option value="">-- Choose a project --</option>
-<option value="https://atlas.champ-pm.app/">Illinois Flood Risk Atlas</option>
-<option value="/baseflood/">BaseFlood.com (Draft)</option>
-<option value="/ras-commander/ras_commander_gui.html">RAS-Commander (Draft)</option>
-<option value="/pastordave/">askpastordave.org (Draft)</option>
-<option value="/purple-air/">PurpleAir Dashboard</option>
-<option value="/huff-flow/docs/">Huff-Flow</option>
-</select>
-<button class="button" onclick="goToProject()">Go to Project</button>
-</div>
-<div class="divider">OR</div>
-<div class="project-links">
-<a class="project-link" href="https://atlas.champ-pm.app/" target="_blank" rel="noopener">
-<div class="project-title">🌊 Illinois Flood Risk Atlas</div>
-<div class="project-desc">Statewide FSF flood exposure, FEMA FIRM gap &amp; EJ screening (CHAMP)</div>
-</a>
-<a class="project-link" href="/baseflood/">
-<div class="project-title">🌊 BaseFlood.com</div>
-<div class="project-desc">Draft version of BaseFlood website</div>
-</a>
-<a class="project-link" href="/ras-commander/ras_commander_gui.html">
-<div class="project-title">📁 RAS-Commander</div>
-<div class="project-desc">Draft version of RAS-Commander GUI</div>
-</a>
-<a class="project-link" href="/pastordave/">
-<div class="project-title">📁 askpastordave.org</div>
-<div class="project-desc">Draft version of askpastordave.org website</div>
-</a>
-<a class="project-link" href="/purple-air/">
-<div class="project-title">📁 PurpleAir Dashboard</div>
-<div class="project-desc">Working version of PurpleAir Dashboard</div>
-</a>
-<a class="project-link" href="/huff-flow/docs/">
-<div class="project-title">📁 Huff Distribution Flow Calculator</div>
-<div class="project-desc">For McHenry County Stormwater Exemption Analysis</div>
-</a>
-</div>
-</div>
-<script>
-        function goToProject() {
-            const select = document.getElementById('projectSelect');
-            const value = select.value;
-            if (value) {
-                window.location.href = value;
-            } else {
-                alert('Please select a project first!');
-            }
-        }
-    </script>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-name">Glenn <span>Heistand</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#ventures">Ventures</a></li>
+      <li><a href="#roles">Roles</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <p class="hero-eyebrow">Water Resources · AI · Open Source</p>
+          <h1 class="hero-name">Glenn Heistand</h1>
+          <p class="hero-title">CFM · Associate Research Scientist · Section Lead, CHAMP</p>
+          <p class="hero-desc">
+            I manage a $15M flood risk program at the Illinois State Water Survey and build AI tools
+            that automate the hard parts of floodplain engineering. FEMA compliance, hydraulic modeling,
+            and responsible AI — often at the same time.
+          </p>
+          <div class="hero-badges">
+            <span class="badge">Certified Floodplain Manager</span>
+            <span class="badge">HEC-RAS · 2D Hydraulics</span>
+            <span class="badge">FEMA CTP</span>
+            <span class="badge">AI/LLM Tooling</span>
+            <span class="badge">Python · Open Source</span>
+          </div>
+        </div>
+        <div class="hero-wave" aria-hidden="true">
+          <svg viewBox="0 0 120 180" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 20 C 15 5, 30 5, 40 20 C 50 35, 65 35, 75 20 C 85 5, 100 5, 115 20" stroke="#1e72b8" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+            <path d="M5 50 C 15 35, 30 35, 40 50 C 50 65, 65 65, 75 50 C 85 35, 100 35, 115 50" stroke="#1e72b8" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+            <path d="M5 80 C 15 65, 30 65, 40 80 C 50 95, 65 95, 75 80 C 85 65, 100 65, 115 80" stroke="#2e8bcb" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+            <path d="M5 110 C 15 95, 30 95, 40 110 C 50 125, 65 125, 75 110 C 85 95, 100 95, 115 110" stroke="#2e8bcb" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.7"/>
+            <path d="M5 140 C 15 125, 30 125, 40 140 C 50 155, 65 155, 75 140 C 85 125, 100 125, 115 140" stroke="#1a3a5c" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.5"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <p class="section-label">Background</p>
+      <h2 class="section-title">About Me</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            I lead the Coordinated Hazard Assessment and Mapping Program (CHAMP) at the Illinois State
+            Water Survey, University of Illinois — a FEMA Cooperating Technical Partner program with
+            roughly $15M in active grants covering floodplain mapping, hydraulic analysis, and flood
+            risk modernization across Illinois.
+          </p>
+          <p>
+            In my 50s, I started teaching myself to code. What started as workflow automation became
+            something bigger: AI-powered tools that can do in hours what used to take weeks of manual
+            engineering work. RAS Agent, FloodStack, and Risk Agent are the result.
+          </p>
+          <p>
+            I'm a co-chair of the ASFPM Mitigation & Engineering Standards Committee and serve on the
+            CHAMP AI Workgroup. I believe responsible AI in engineering means augmenting expertise, not
+            replacing judgment.
+          </p>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card">
+            <div class="stat-num">$15M</div>
+            <div class="stat-label">Active grant portfolio under management</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">20+</div>
+            <div class="stat-label">Years in water resources & floodplain engineering</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">CFM</div>
+            <div class="stat-label">Certified Floodplain Manager, ASFPM</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">50th</div>
+            <div class="stat-label">ASFPM Anniversary Conference, Milwaukee 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="container">
+      <p class="section-label">Open Source & Research</p>
+      <h2 class="section-title">Projects</h2>
+      <p class="section-sub">
+        Tools I've built or contributed to — mostly aimed at automating the painful parts of
+        hydraulic modeling, flood risk analysis, and FEMA compliance workflows.
+      </p>
+      <div class="card-grid">
+
+        <a class="card" href="https://github.com/gheistand/ras-agent" target="_blank" rel="noopener">
+          <div class="card-icon">🤖</div>
+          <div class="card-title">RAS Agent</div>
+          <div class="card-desc">
+            AI-powered HEC-RAS automation pipeline. Stages 1–10: watershed delineation through
+            SPHERE loss estimation and cloud-native GeoParquet export. Cuts weeks of manual work
+            to hours.
+          </div>
+          <div class="card-tag-row">
+            <span class="tag">Python</span>
+            <span class="tag">HEC-RAS</span>
+            <span class="tag">FEMA FFRD</span>
+            <span class="tag-ext">GitHub ↗</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://github.com/gheistand/floodstack" target="_blank" rel="noopener">
+          <div class="card-icon">🌊</div>
+          <div class="card-title">FloodStack</div>
+          <div class="card-desc">
+            Open-source orchestration layer chaining TRITON, RAS Agent, and SPHERE into a
+            complete flood risk quantification pipeline. DepthGrid as common currency;
+            cloud-native from the ground up.
+          </div>
+          <div class="card-tag-row">
+            <span class="tag">Python</span>
+            <span class="tag">GeoParquet</span>
+            <span class="tag">DuckDB</span>
+            <span class="tag-ext">GitHub ↗</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://github.com/gheistand/risk-agent" target="_blank" rel="noopener">
+          <div class="card-icon">📊</div>
+          <div class="card-title">Risk Agent</div>
+          <div class="card-desc">
+            Shifts flood risk from binary floodplain membership to continuous, probabilistic
+            quantification — Expected Annual Damage per structure, hazard curves, and
+            reach-level prioritization aligned with FEMA's FFRD initiative.
+          </div>
+          <div class="card-tag-row">
+            <span class="tag">EAD</span>
+            <span class="tag">FFRD</span>
+            <span class="tag">CDC SVI</span>
+            <span class="tag-ext">GitHub ↗</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://atlas.champ-pm.app/" target="_blank" rel="noopener">
+          <div class="card-icon">🗺️</div>
+          <div class="card-title">Illinois Flood Risk Atlas</div>
+          <div class="card-desc">
+            Statewide FSF flood exposure, FEMA FIRM gap analysis, and Environmental Justice
+            screening for Illinois. Built through CHAMP with UIUC and state partners.
+          </div>
+          <div class="card-tag-row">
+            <span class="tag">CHAMP</span>
+            <span class="tag">GIS</span>
+            <span class="tag">FEMA</span>
+            <span class="tag-ext">Open App ↗</span>
+          </div>
+        </a>
+
+        <a class="card" href="/pastordave/" target="_blank" rel="noopener">
+          <div class="card-icon">✝️</div>
+          <div class="card-title">Ask Pastor Dave</div>
+          <div class="card-desc">
+            AI-powered faith Q&amp;A tool. An experiment in building ministry-oriented AI that
+            responds thoughtfully to questions of theology, life, and faith within a
+            Wesleyan-Arminian framework.
+          </div>
+          <div class="card-tag-row">
+            <span class="tag">AI</span>
+            <span class="tag">Ministry</span>
+            <span class="tag">ElevenLabs</span>
+            <span class="tag-ext">Live ↗</span>
+          </div>
+        </a>
+
+        <a class="card" href="/purple-air/" target="_blank" rel="noopener">
+          <div class="card-icon">💨</div>
+          <div class="card-title">PurpleAir Dashboard</div>
+          <div class="card-desc">
+            Real-time AQI dashboard pulling from the PurpleAir API with EPA PM2.5 correction,
+            AQI color coding, and auto-refresh. Built for local air quality monitoring.
+          </div>
+          <div class="card-tag-row">
+            <span class="tag">JavaScript</span>
+            <span class="tag">PurpleAir API</span>
+            <span class="tag">AQI</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Ventures -->
+  <section id="ventures">
+    <div class="container">
+      <p class="section-label">Consulting & Startups</p>
+      <h2 class="section-title">Ventures</h2>
+      <p class="section-sub">
+        Two side businesses built around the same core belief: domain expertise + AI tooling
+        creates leverage that generic solutions can't match.
+      </p>
+      <div class="venture-grid">
+
+        <a class="venture-card" href="https://baseflood.com" target="_blank" rel="noopener">
+          <div class="venture-logo">
+            <span class="base">Base</span><span class="flood">Flood</span>
+          </div>
+          <p class="venture-tagline">
+            FEMA flood risk consulting for engineering firms, developers, and municipalities.
+            Specialized hydraulic modeling, LOMR/LOMA applications, and regulatory compliance
+            for situations where standard approaches don't work.
+          </p>
+          <span class="venture-url">baseflood.com ↗</span>
+        </a>
+
+        <a class="venture-card" href="https://reepworks.com" target="_blank" rel="noopener">
+          <div class="venture-logo">
+            <span class="reep">Reep</span><span class="works"> Works</span>
+          </div>
+          <p class="venture-tagline">
+            Domain-specific AI software and consulting for work that matters. Builders of
+            RAS Agent, FloodStack, and Risk Agent — tools that bring AI automation to
+            water resources engineering at scale.
+          </p>
+          <span class="venture-url">reepworks.com ↗</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Roles & Affiliations -->
+  <section id="roles">
+    <div class="container">
+      <p class="section-label">Professional</p>
+      <h2 class="section-title">Roles & Affiliations</h2>
+      <p class="section-sub">Where I spend my professional time.</p>
+      <div class="role-list">
+
+        <div class="role-item">
+          <div>
+            <div class="role-title">Section Lead, CHAMP — Coordinated Hazard Assessment and Mapping Program</div>
+            <div class="role-org">Illinois State Water Survey / Prairie Research Institute, University of Illinois</div>
+          </div>
+          <div class="role-year">Present</div>
+        </div>
+
+        <div class="role-item">
+          <div>
+            <div class="role-title">Co-Chair, Mitigation & Engineering Standards Committee</div>
+            <div class="role-org">Association of State Floodplain Managers (ASFPM)</div>
+          </div>
+          <div class="role-year">Present</div>
+        </div>
+
+        <div class="role-item">
+          <div>
+            <div class="role-title">CHAMP AI Workgroup Lead</div>
+            <div class="role-org">Illinois State Water Survey — responsible AI implementation for water resources engineering</div>
+          </div>
+          <div class="role-year">2025–Present</div>
+        </div>
+
+        <div class="role-item">
+          <div>
+            <div class="role-title">Governing Board Chair</div>
+            <div class="role-org">New Horizon Church</div>
+          </div>
+          <div class="role-year">Present</div>
+        </div>
+
+        <div class="role-item">
+          <div>
+            <div class="role-title">Principal, BaseFlood Engineering, PLLC</div>
+            <div class="role-org">FEMA flood risk consulting — hydraulic modeling, LOMR/LOMA, regulatory compliance</div>
+          </div>
+          <div class="role-year">2024–Present</div>
+        </div>
+
+        <div class="role-item">
+          <div>
+            <div class="role-title">Founder, Reep Works LLC</div>
+            <div class="role-org">Domain-specific AI software for water resources engineering</div>
+          </div>
+          <div class="role-year">2025–Present</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <p class="section-label">Get In Touch</p>
+      <h2 class="section-title">Contact</h2>
+      <p class="section-sub" style="margin: 0.5rem auto 0; text-align: center;">
+        Engineering consulting inquiries → BaseFlood. AI/software → Reep Works.<br>
+        Professional connections → LinkedIn.
+      </p>
+      <div class="contact-links">
+        <a class="contact-link" href="https://baseflood.com/contact" target="_blank" rel="noopener">
+          🌊 BaseFlood Contact
+        </a>
+        <a class="contact-link" href="https://reepworks.com" target="_blank" rel="noopener">
+          ⚡ Reep Works
+        </a>
+        <a class="contact-link" href="https://www.linkedin.com/in/glennheistand" target="_blank" rel="noopener">
+          💼 LinkedIn
+        </a>
+        <a class="contact-link" href="https://github.com/gheistand" target="_blank" rel="noopener">
+          🐙 GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      © 2026 Glenn Heistand · Champaign, IL ·
+      <a href="https://baseflood.com" style="color:inherit;">BaseFlood Engineering, PLLC</a> ·
+      <a href="https://reepworks.com" style="color:inherit;">Reep Works LLC</a>
+    </div>
+  </footer>
+
 </body>
 </html>
