@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Air Quality Dashboard — FTI Smoke Monitor</title>
+  <title>Air Quality Dashboard - FTI Smoke Monitor</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -274,7 +274,7 @@
   <div class="container">
     <header>
       <h1>🌬️ Air Quality Dashboard</h1>
-      <p class="subtitle">Real-time PM monitoring — ISWS buildings adjacent to Fire Training Institute</p>
+      <p class="subtitle">Real-time PM monitoring - ISWS buildings adjacent to Fire Training Institute</p>
       <p class="subtitle">Select time range and averaging period, then click Refresh (or enable auto-refresh below)</p>
 
       <div class="controls">
@@ -363,7 +363,7 @@
       <div class="aqi-legend" id="aqiLegend" style="display:none;"></div>
 
       <div class="epa-note" id="epaNote" style="display:none;">
-        ℹ️ <strong>EPA correction active</strong> (Barkjohn et al. 2021) — PM₂.₅ values adjusted using
+        ℹ️ <strong>EPA correction active</strong> (Barkjohn et al. 2021) - PM₂.₅ values adjusted using
         <em>0.524 × CF₁ − 0.0852 × RH + 5.72</em>. Calibrated for ambient/woodsmoke conditions.
         Accuracy may vary for synthetic combustion (rubber, foam, chemicals, metals).
       </div>
@@ -405,7 +405,7 @@
         { id: 286706, name: "Building 4",          readKey: "EQ6E9SWU8EYERDA3", color: "#ef4444" },
         { id: 286578, name: "Building 5",          readKey: "01TNMV73OQEJ873I", color: "#8b5cf6" }
       ],
-      // pm2.5_cf_1 is NOT in this list — it's fetched automatically when EPA correction is on
+      // pm2.5_cf_1 is NOT in this list - it's fetched automatically when EPA correction is on
       // and always included in the current-readings batched call for AQI display
       fields: [
         { key: "pm1.0_atm",  label: "PM1.0",        unit: "μg/m³", group: "pm" },
@@ -440,7 +440,7 @@
     };
 
     // ══════════════════════════════════════════════════════════════════════
-    // AQI — EPA PM2.5 breakpoints (24-hr NowCast)
+    // AQI - EPA PM2.5 breakpoints (24-hr NowCast)
     // ══════════════════════════════════════════════════════════════════════
     const AQI_BREAKPOINTS = [
       { aqiLo:   0, aqiHi:  50, pmLo:   0.0, pmHi:  12.0, color: '#00e400', textColor: '#1a5c00', label: 'Good',                          short: 'Good' },
@@ -548,7 +548,7 @@
         if (!document.hidden && !isBulkDownloading) {
           await refreshData(); // refreshData calls scheduleNextAutoRefresh() at end
         } else {
-          scheduleNextAutoRefresh(); // Hidden or busy — reschedule without refreshing
+          scheduleNextAutoRefresh(); // Hidden or busy - reschedule without refreshing
         }
       }, AUTO_REFRESH_MS);
     }
@@ -813,7 +813,7 @@
     }
 
     // ══════════════════════════════════════════════════════════════════════
-    // API — HISTORY (per sensor, with cache)
+    // API - HISTORY (per sensor, with cache)
     // ══════════════════════════════════════════════════════════════════════
     async function fetchSensorHistory(sensor, hours, avgMinutes, fieldKeys) {
       const fieldsStr = fieldKeys.join(',');
@@ -836,7 +836,7 @@
     }
 
     // ══════════════════════════════════════════════════════════════════════
-    // API — CURRENT (single batched call for all sensors)
+    // API - CURRENT (single batched call for all sensors)
     // ══════════════════════════════════════════════════════════════════════
     async function fetchAllCurrentData() {
       const idxs   = CONFIG.sensors.map(s => s.id).join(',');
@@ -907,13 +907,13 @@
           if (epaCorrection && field.key === 'pm2.5_atm') {
             const corrected = getCorrectedPM25Series(sd);
             if (corrected) { values = corrected; suffix = ' ★EPA'; }
-            else             { suffix = ' (raw — cf₁ unavail.)'; }
+            else             { suffix = ' (raw - cf₁ unavail.)'; }
           }
 
           if (!values) return;
 
           datasets.push({
-            label: `${sensor.name} — ${field.label}` + suffix,
+            label: `${sensor.name} - ${field.label}` + suffix,
             data: sd.times.map((t, i) => ({ x: t, y: values[i] })),
             borderColor: sensor.color,
             backgroundColor: sensor.color + '20',
@@ -930,7 +930,7 @@
     }
 
     // ══════════════════════════════════════════════════════════════════════
-    // CURRENT READINGS — with AQI color coding
+    // CURRENT READINGS - with AQI color coding
     // ══════════════════════════════════════════════════════════════════════
     function updateCurrentReadings(currentData) {
       lastCurrentData = currentData;
@@ -1013,7 +1013,7 @@
           lEl.textContent = 'Raw ATM:';
           const vEl = document.createElement('span'); vEl.className = 'value';
           vEl.style.color = 'var(--text-secondary)';
-          vEl.textContent = `${rawPM25 != null ? rawPM25.toFixed(1) : '—'} μg/m³`;
+          vEl.textContent = `${rawPM25 != null ? rawPM25.toFixed(1) : '-'} μg/m³`;
           corrRow.appendChild(lEl); corrRow.appendChild(vEl);
           vals.appendChild(corrRow);
         }
@@ -1157,7 +1157,7 @@
         document.body.appendChild(a); a.click();
         document.body.removeChild(a); URL.revokeObjectURL(url);
 
-        updateBulkProgress(1, 1, `Done — ${sorted.length} data points`);
+        updateBulkProgress(1, 1, `Done - ${sorted.length} data points`);
         setTimeout(closeBulkModal, 3000);
 
       } catch (e) {
@@ -1230,7 +1230,7 @@
         downloadBtn.disabled = allData.size === 0;
         statusEl.textContent = ok === CONFIG.sensors.length
           ? `Last updated: ${new Date().toLocaleTimeString()}`
-          : `Partial (${ok}/${CONFIG.sensors.length}) — ${new Date().toLocaleTimeString()}`;
+          : `Partial (${ok}/${CONFIG.sensors.length}) - ${new Date().toLocaleTimeString()}`;
 
       } catch (e) {
         console.error('Refresh error:', e);
@@ -1269,7 +1269,7 @@
         epaCorrection = e.target.checked;
         document.getElementById('epaNote').style.display = epaCorrection ? 'block' : 'none';
         if (epaCorrection) {
-          // Need cf_1 + humidity in history data — trigger refresh if not already loaded
+          // Need cf_1 + humidity in history data - trigger refresh if not already loaded
           let needsRefetch = false;
           allData.forEach(sd => {
             if (!sd.fetchedFields.includes('pm2.5_cf_1')) needsRefetch = true;
