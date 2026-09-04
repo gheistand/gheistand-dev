@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Portfolio Audit — CHAMP / Glenn Heistand</title>
+  <meta name="description" content="Evidence portfolio of AI usage across Glenn Heistand's GitHub repositories, prepared for the PRI AI-Enabled Science Committee.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #1a3a5c;
+      --blue:      #1e72b8;
+      --blue-lt:   #2e8bcb;
+      --blue-dim:  #0f2d4a;
+      --bg:        #0d1b2a;
+      --bg-card:   #0f2236;
+      --bg-elevated:#132840;
+      --border:    rgba(30,114,184,0.20);
+      --border-acc:rgba(30,114,184,0.45);
+      --text:      #e8f0f8;
+      --text-sec:  #8da8c4;
+      --text-muted:#4d6b87;
+      --accent:    #1e72b8;
+      --accent-br: #2e8bcb;
+      --white:     #ffffff;
+      --green:     #34d399;
+      --amber:     #fbbf24;
+      --red:       #f87171;
+      --radius:    12px;
+      --radius-sm: 8px;
+      --font-head: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+      --font-body: 'Inter', 'Segoe UI', Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--blue-lt); }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 2rem;
+      background: rgba(13,27,42,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-name {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .nav-name span { color: var(--blue-lt); }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-sec);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      padding: 0.4rem 0.9rem;
+      border: 1px solid var(--border-acc);
+      border-radius: 20px;
+      color: var(--blue-lt) !important;
+      font-size: 0.8rem !important;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section { padding: 3.5rem 0; }
+
+    /* ── Hero ── */
+    #hero {
+      padding: 7.5rem 0 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue-lt);
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 1.1rem;
+      max-width: 820px;
+    }
+
+    .hero-desc {
+      font-size: 1.02rem;
+      color: var(--text-sec);
+      max-width: 720px;
+      line-height: 1.75;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .hero-meta strong { color: var(--text-sec); font-weight: 500; }
+
+    /* ── Section Headings ── */
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue-lt);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-sub {
+      font-size: 0.97rem;
+      color: var(--text-sec);
+      max-width: 700px;
+      line-height: 1.7;
+      margin-bottom: 2.25rem;
+    }
+
+    /* ── Stat strip ── */
+    #stats { border-bottom: 1px solid var(--border); padding: 2.5rem 0; }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem 1.2rem;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: var(--font-head);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--blue-lt);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-sec);
+      line-height: 1.35;
+    }
+
+    /* ── Filter chips ── */
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .chip {
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-sec);
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+    }
+
+    .chip:hover { border-color: var(--border-acc); color: var(--text); }
+
+    .chip.active {
+      background: rgba(30,114,184,0.18);
+      border-color: var(--border-acc);
+      color: var(--blue-lt);
+    }
+
+    /* ── Repo cards ── */
+    #repos { border-bottom: 1px solid var(--border); }
+
+    .repo-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .repo-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.6rem;
+      transition: border-color 0.2s;
+    }
+
+    .repo-card:hover { border-color: var(--border-acc); }
+
+    .repo-card.hidden { display: none; }
+
+    .repo-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.6rem 0.9rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .repo-name {
+      font-family: var(--font-mono);
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .repo-name a { color: inherit; text-decoration: none; }
+    .repo-name a:hover { color: var(--blue-lt); }
+
+    .pill {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .pill-maturity-production { background: rgba(52,211,153,0.14); color: var(--green); border: 1px solid rgba(52,211,153,0.3); }
+    .pill-maturity-prototype  { background: rgba(251,191,36,0.14); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
+    .pill-maturity-experiment{ background: rgba(141,168,196,0.14); color: var(--text-sec); border: 1px solid var(--border); }
+    .pill-maturity-abandoned { background: rgba(248,113,113,0.1); color: var(--red); border: 1px solid rgba(248,113,113,0.25); }
+    .pill-maturity-outofscope{ background: rgba(141,168,196,0.08); color: var(--text-muted); border: 1px solid var(--border); }
+
+    .pill-type {
+      background: rgba(30,114,184,0.12);
+      color: var(--blue-lt);
+      border: 1px solid var(--border-acc);
+    }
+
+    .repo-purpose {
+      font-size: 0.93rem;
+      color: var(--text-sec);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+
+    .repo-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 720px) {
+      .repo-detail-grid { grid-template-columns: 1fr; }
+    }
+
+    .detail-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .detail-body {
+      font-size: 0.87rem;
+      color: var(--text-sec);
+      line-height: 1.6;
+    }
+
+    .lesson-box {
+      background: var(--bg-elevated);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 0.85rem 1.1rem;
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .lesson-box strong {
+      color: var(--blue-lt);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    /* ── Summary ── */
+    #summary .summary-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 2.2rem;
+    }
+
+    .summary-box p {
+      color: var(--text-sec);
+      line-height: 1.8;
+      font-size: 0.98rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .summary-box p:last-child { margin-bottom: 0; }
+
+    .summary-box strong { color: var(--text); }
+
+    /* ── Footer ── */
+    footer {
+      padding: 2.5rem 0 3rem;
+      text-align: center;
+    }
+
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+
+    footer a { color: var(--text-sec); }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .stat-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-name">Glenn<span>Heistand</span></a>
+    <ul class="nav-links">
+      <li><a href="/#projects">Projects</a></li>
+      <li><a href="/#ventures">Ventures</a></li>
+      <li><a href="/" class="nav-cta">← Back to site</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <div class="container">
+      <div class="hero-eyebrow">PRI AI-Enabled Science Committee — Evidence Portfolio</div>
+      <h1 class="hero-title">How AI is actually being used across 23 repositories at CHAMP and beyond</h1>
+      <p class="hero-desc">
+        This is a plain-language audit of every active GitHub repository under my account, classifying real
+        AI usage against a common framework (type, maturity, workflow impact, governance) rather than
+        counting "AI adoption" as a headline number. It intentionally separates production tools from
+        experiments, personal projects from CHAMP scientific work, and AI-assisted coding from AI that
+        actually runs at inference time.
+      </p>
+      <div class="hero-meta">
+        <span><strong>23</strong> repositories audited</span>
+        <span>·</span>
+        <span>Prepared September 2026</span>
+        <span>·</span>
+        <span>Glenn Heistand, CHAMP / Illinois State Water Survey</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="stats">
+    <div class="container">
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Repos with AI in production use with governance gates</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">7</div>
+          <div class="stat-label">Working prototypes — validated but not yet fully deployed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">0</div>
+          <div class="stat-label">Repos giving AI unsupervised write access to authoritative data</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Empty/abandoned repos, excluded from the substantive count</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="repos">
+    <div class="container">
+      <div class="section-label">Repository-by-repository</div>
+      <h2 class="section-title">The audit</h2>
+      <p class="section-sub">
+        Filter by AI usage type. "AI-assisted coding" means AI helped write the code but nothing AI-driven
+        runs when the tool is actually used &mdash; that's a meaningfully different claim than "agentic
+        automation," and the two get conflated a lot.
+      </p>
+
+      <div class="filter-row" id="filters">
+        <div class="chip active" data-filter="all">All (23)</div>
+        <div class="chip" data-filter="agentic">Agentic automation</div>
+        <div class="chip" data-filter="rag">RAG / knowledge grounding</div>
+        <div class="chip" data-filter="coding">AI-assisted coding</div>
+        <div class="chip" data-filter="prompt">Prompt engineering</div>
+        <div class="chip" data-filter="ml">ML / surrogate modeling</div>
+        <div class="chip" data-filter="tooling">Tooling / MCP integration</div>
+        <div class="chip" data-filter="none">No AI component</div>
+      </div>
+
+      <div class="repo-grid" id="repo-grid"></div>
+    </div>
+  </section>
+
+  <section id="summary">
+    <div class="container">
+      <div class="section-label">Takeaway</div>
+      <h2 class="section-title">What this portfolio demonstrates about operationalizing AI in a scientific survey</h2>
+      <div class="summary-box">
+        <p>
+          Across 23 repositories, real AI-in-production work clusters in a small, identifiable set:
+          <strong>ras-agent</strong> (agentic hydraulic modeling orchestration with an explicit human-signoff
+          gate), <strong>champ-contacts-review</strong> (the strongest governance example &mdash; AI proposes
+          with cited sources, a human commits to the system of record, and the two are structurally
+          separated), and <strong>champ-pm</strong> (production payroll/grant tooling with a narrow,
+          dry-run-gated AI feature). The rest split into experimental physics/ML pipelines (floodstack,
+          risk-agent, il-triton, ras-fis-profile) that are honestly self-labeled as prototypes, a personal
+          consulting/ministry product line (pastordave-*, baseflood-*) that is commercially mature but
+          organizationally separate from CHAMP's scientific mission, and several trivial or abandoned repos
+          excluded from this presentation.
+        </p>
+        <p>
+          The pattern worth highlighting to the committee is not volume of AI usage but
+          <strong>discipline in scoping it</strong>: every production-grade tool keeps AI confined to
+          proposal/summarization/orchestration roles while routing anything consequential (database writes,
+          payroll syncs, model promotion) through an explicit, logged human gate. No repo in this portfolio
+          gives an AI system unsupervised write access to authoritative data. That constraint, more than any
+          single tool, is the transferable institutional lesson.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>
+        Prepared by Glenn Heistand for the PRI AI-Enabled Science Committee · September 2026<br>
+        Methodology: repository purpose, commit history, README/CLAUDE.md/AGENTS.md documentation, and test/issue evidence reviewed directly via the GitHub API.
+        Claims are scoped to what is documented in-repo; unimplemented or planned features are marked as such, not counted as delivered.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const repos = [
+      {
+        name: "ras-agent",
+        url: "https://github.com/gheistand/ras-agent",
+        purpose: "Automated pipeline that takes terrain and flow data and runs a full 2D HEC-RAS hydraulic model, producing regulatory-grade flood maps without manual model-building. Built with an engineering firm (CLB) and the open-source RAS Commander community.",
+        types: ["agentic", "coding"],
+        typeLabel: "Agentic automation (Orchestrator) + AI-assisted coding",
+        maturity: "prototype",
+        maturityLabel: "Working prototype — validated end-to-end",
+        impact: "Replaces weeks of manual HEC-RAS geometry building/QC per study reach. 916 automated tests. Provenance JSON (run_config.json) written per run.",
+        governance: "Explicit human signoff gate required before \u201cproduction-quality model promotion.\u201d QAQC reviewer bundle required for TauDEM watershed delineation. SLURM failure/crash instrumentation. CLAUDE.md + AGENTS.md steering docs.",
+        lesson: "Encode \u201creviewer must sign off before promotion\u201d as a literal pipeline gate, not a policy memo \u2014 it survives model/tool changes that documentation doesn't."
+      },
+      {
+        name: "floodstack",
+        url: "https://github.com/gheistand/floodstack",
+        purpose: "Open-source orchestration layer that picks the right hydraulic engine (fast GPU-based TRITON vs. regulatory HEC-RAS via RAS Agent) for a given flood study and chains it to consequence/loss estimation (SPHERE). Public framework, not CHAMP-specific.",
+        types: ["tooling", "coding"],
+        typeLabel: "Tooling/MCP-style integration + AI-assisted coding",
+        maturity: "prototype",
+        maturityLabel: "Working prototype",
+        impact: "Intended to collapse \u201cmonths of manual work + expensive commercial software\u201d into one pipeline call \u2014 stated intent, not yet measured on a real study.",
+        governance: "No sensitive data (public framework). Relies on downstream repos (ras-agent, TRITON, SPHERE) for their own review gates.",
+        lesson: "Build the \u201cpick the right tool for the job\u201d logic as a thin adapter layer over already-validated engines rather than reimplementing physics \u2014 it lowers audit burden because each engine keeps its own provenance."
+      },
+      {
+        name: "risk-agent",
+        url: "https://github.com/gheistand/risk-agent",
+        purpose: "Converts multi-return-period HEC-RAS flood depth outputs into Expected Annual Damage (EAD) per structure, hazard curves, and reach-level risk rankings aligned with FEMA's Future Flood Risk Data methodology.",
+        types: ["coding"],
+        typeLabel: "AI-assisted coding (no runtime AI in the tool itself)",
+        maturity: "prototype",
+        maturityLabel: "Working prototype",
+        impact: "Converts a binary \u201cin/out of floodplain\u201d deliverable into continuous probabilistic risk \u2014 a methodology shift, not yet benchmarked against a manual EAD workflow for time savings.",
+        governance: "Deterministic engineering math (USACE IWR/HEC depth-damage curves). No AI-in-the-loop decision points to govern. Standard software test coverage.",
+        lesson: "Don't over-classify: a repo that used AI to help write code isn't \u201cagentic\u201d just because it sits in an agent-named pipeline \u2014 keep the AI-usage claim honest to what runs at inference time."
+      },
+      {
+        name: "champ-contacts-review",
+        url: "https://github.com/gheistand/champ-contacts-review",
+        purpose: "Internal tool where an AI research assistant checks public sources (community websites, county records, Ballotpedia) to verify or propose updates to CHAMP's Illinois floodplain-contacts database, without ever writing to the real database.",
+        types: ["rag", "agentic"],
+        typeLabel: "RAG / knowledge grounding + agentic automation (Tasker)",
+        maturity: "production",
+        maturityLabel: "Working prototype, in active internal use",
+        impact: "Targets a recurring manual research/verification chore across hundreds of community officials' contact records. No measured hours-saved figure published, but explicitly designed to replace ad hoc phone/web checks.",
+        governance: "Zero write access to the production Access database by design. Every proposed change requires a sourced URL. Confidence-rated (high/medium/low). Explicit human approve/reject/undo queue. \u201cFlag uncertain\u201d is a first-class non-answer state, not a forced guess.",
+        lesson: "The strongest governance pattern in the portfolio: separate \u201cAI proposes with cited evidence\u201d from \u201chuman commits to system of record\u201d as two different systems, not two steps in one system \u2014 it makes the trust boundary structural, not procedural."
+      },
+      {
+        name: "champ-pm",
+        url: "https://github.com/gheistand/champ-pm",
+        purpose: "Program management system for CHAMP (timesheets, budget burndown, staff/grant tracking, CRM) built to replace spreadsheet-based tracking of a roughly $15M grant portfolio.",
+        types: ["coding", "prompt"],
+        typeLabel: "AI-assisted coding + prompt engineering (plain-English goals \u2192 LP constraints via Claude Haiku)",
+        maturity: "production",
+        maturityLabel: "In production use",
+        impact: "Staff Plans optimizer turns natural-language staffing goals into LP-solved salary/appointment scenarios, replacing manual spreadsheet scenario modeling. No measured time-savings figure published.",
+        governance: "PRIDE 2.0 payroll sync has a dryRun safety flag defaulting to true. Role-gated access (Clerk auth, admin/staff). Append-only salary history (audit trail by construction).",
+        lesson: "When AI touches payroll/staffing data, default every write-capable integration to dry-run and require an explicit flag flip to go live \u2014 cheap insurance against a bad sync."
+      },
+      {
+        name: "il-triton",
+        url: "https://github.com/gheistand/il-triton",
+        purpose: "Pipeline to run TRITON (Oak Ridge National Lab's GPU-accelerated 2D flood solver) at Illinois statewide scale, intended to eventually replace licensed First Street Foundation data in the Illinois Flood Risk Atlas.",
+        types: ["ml"],
+        typeLabel: "ML / surrogate modeling (physics-based simulation as a faster substitute engine)",
+        maturity: "experiment",
+        maturityLabel: "Experiment — single-HUC proof of concept only",
+        impact: "Stated target: ~5\u201330 min per HUC-10 on GPU vs. 30+ min just for geometry build in HEC-RAS. Only one HUC has actually been run (Spring Creek, 18 min wall time) \u2014 the statewide comparison is not yet achieved.",
+        governance: "None yet in production. Note: the unattended monitor built around this pipeline was disabled separately in July 2026 for an unrelated authentication/security reason, not a modeling issue.",
+        lesson: "Publish honest status tables (\u2705 Validated / \ud83d\udd04 In progress / \ud83d\udcCB Planned) in the README itself \u2014 it stops a proof-of-concept from being cited as a finished capability by someone outside the project."
+      },
+      {
+        name: "ras-fis-profile",
+        url: "https://github.com/gheistand/ras-fis-profile",
+        purpose: "Standalone tool to generate FEMA-style Flood Insurance Study profile plots from 1D HEC-RAS models, intended to replace the aging FEMA RASPLOT tool and a commercial Excel-based alternative.",
+        types: ["coding"],
+        typeLabel: "AI-assisted coding",
+        maturity: "experiment",
+        maturityLabel: "Experiment \u2014 pre-alpha scaffold",
+        impact: "No real CHAMP project has been run through it yet; only a test fixture (Muncie, IN) exists. Nothing measurable to report yet.",
+        governance: "CLAUDE.md documents module build order and an explicit scope boundary (1D only; defers upstream to ras-commander rather than forking it).",
+        lesson: "Scope discipline: writing \u201cif a generic gap is found, propose it upstream, don't patch here\u201d into the repo's own docs prevents silent fork drift during a fast AI-assisted coding session."
+      },
+      {
+        name: "sphere-mirror",
+        url: "https://github.com/gheistand/sphere-mirror",
+        purpose: "Private insurance-backup mirror of an external collaborator's (Niyam Projects) open-source HAZUS flood loss/consequence modeling library. Not original CHAMP work.",
+        types: ["ml"],
+        typeLabel: "ML / surrogate modeling (HAZUS damage-function methodology; not AI-authored)",
+        maturity: "outofscope",
+        maturityLabel: "In production use upstream; this repo is a passive mirror",
+        impact: "Enables FloodStack's consequence-estimation stage. No CHAMP-original workflow acceleration to claim since CHAMP didn't build it.",
+        governance: "None applicable \u2014 it's a dependency-continuity backup, not an active project with review gates.",
+        lesson: "Mirroring a critical external dependency you don't control is itself a governance action \u2014 document why it exists so a future auditor doesn't mistake it for original work."
+      },
+      {
+        name: "pastordave-pro",
+        url: "https://github.com/gheistand/pastordave-pro",
+        purpose: "Commercial SaaS product (Reep Works LLC) giving churches an AI voice/text companion for congregant engagement, sermon summarization, and pastoral-alert triage. Not a CHAMP/scientific-survey project.",
+        types: ["agentic", "prompt"],
+        typeLabel: "Agentic automation (Collaborator) + prompt engineering",
+        maturity: "production",
+        maturityLabel: "In production use \u2014 live paid product",
+        impact: "Automates sermon ingestion \u2192 AI summary/discussion questions from a YouTube playlist watcher, and routine congregant Q&A via a memory-persistent voice agent.",
+        governance: "A raise_pastoral_alert tool defines a human-escalation path for sensitive content. Scripture text is pulled verbatim from API.Bible rather than LLM-generated \u2014 an explicit anti-hallucination design choice for theological content.",
+        lesson: "Never let the model generate the authoritative text (scripture/citations); only let it generate the summary/wrapper around a verified source \u2014 directly reusable for any AI tool touching reference material."
+      },
+      {
+        name: "pastordave-org",
+        url: "https://github.com/gheistand/pastordave-org",
+        purpose: "Free public-facing \u201cAsk Pastor Dave\u201d AI Q&A demo/marketing site for faith questions, functioning as the funnel product for pastordave-pro. Not a CHAMP/scientific project.",
+        types: ["rag", "prompt"],
+        typeLabel: "RAG / knowledge grounding + prompt engineering",
+        maturity: "production",
+        maturityLabel: "In production use, actively maintained",
+        impact: "The only repo in the portfolio with a published analysis of actual AI output against real user interactions (441 real conversation transcripts analyzed, Apr\u2013Jul 2026).",
+        governance: "FAQ explicitly addresses \u201cAI/theology trust concerns\u201d \u2014 a rare example of proactively documenting AI limitations to end users rather than burying them.",
+        lesson: "Publish a plain-language \u201chow much should you trust this AI answer\u201d FAQ for any public-facing AI tool \u2014 it's cheap and it's the single most direct trust-building artifact in this portfolio."
+      },
+      {
+        name: "il-flood-atlas",
+        url: "https://github.com/gheistand/il-flood-atlas",
+        purpose: "Internal CHAMP tool for browsing First Street Foundation's licensed statewide flood depth-grid data alongside experimental RAS Agent model outputs, under a restrictive data-sharing agreement.",
+        types: ["tooling"],
+        typeLabel: "Tooling / MCP integration (data serving/visualization)",
+        maturity: "prototype",
+        maturityLabel: "Working prototype / limited internal use",
+        impact: "Adds a click-to-run entry point into ras-agent from a browsable map, reducing friction to kick off a model run. No measured time figure.",
+        governance: "README explicitly states data-sensitivity up front: \u201cFSF data is under a data sharing agreement. Internal analysis only until agreement is renewed for public-facing use.\u201d",
+        lesson: "State data-use/licensing restrictions as the first sentence of a README, in bold, before setup instructions \u2014 makes the constraint impossible for a new contributor to miss."
+      },
+      {
+        name: "il-flood-dashboard",
+        url: "https://github.com/gheistand/il-flood-dashboard",
+        purpose: "Public real-time Illinois stream-gage flood monitoring dashboard (USGS data) with email alert subscriptions \u2014 a live public utility, not internally AI-driven.",
+        types: ["coding"],
+        typeLabel: "AI-assisted coding (no runtime AI feature)",
+        maturity: "production",
+        maturityLabel: "In production use, live public site",
+        impact: "Public citizen-facing infrastructure; no scientific-workflow acceleration claim applies here.",
+        governance: "Standard software practice (CHANGELOG, migrations). No AI-specific governance needed since no AI runs at inference time.",
+        lesson: "Distinguish clearly between \u201cbuilt with AI coding assistance\u201d and \u201cruns AI at inference time\u201d in any portfolio \u2014 conflating the two inflates the AI-usage count."
+      },
+      {
+        name: "basebot-dashboard",
+        url: "https://github.com/gheistand/basebot-dashboard",
+        purpose: "Personal cost/usage tracking dashboard for Glenn's own AI assistant (BaseBot/OpenClaw), scraping daily model-usage stats into a static page. Personal infrastructure, not a scientific tool.",
+        types: ["tooling"],
+        typeLabel: "Tooling / MCP integration (usage telemetry)",
+        maturity: "outofscope",
+        maturityLabel: "In production use \u2014 personal tool",
+        impact: "Personal-productivity tooling only; no scientific/professional workflow claim.",
+        governance: "No governance features needed (personal, non-sensitive usage stats). No README documentation at all \u2014 a gap even for an internal tool.",
+        lesson: "Even trivial internal tools benefit from a one-paragraph README stating what it is and isn't \u2014 this one has none, and an outside auditor has to infer purpose from commit messages alone."
+      },
+      {
+        name: "gheistand-dev",
+        url: "https://github.com/gheistand/gheistand-dev",
+        purpose: "Personal professional website (portfolio, credentials, project links), hosted on Cloudflare Pages. Not itself a scientific/AI tool \u2014 a static site (the site you're reading this on).",
+        types: ["coding"],
+        typeLabel: "AI-assisted coding; no AI runtime",
+        maturity: "outofscope",
+        maturityLabel: "In production use \u2014 informational site",
+        impact: "None \u2014 informational/marketing site.",
+        governance: "None applicable.",
+        lesson: "Not a repo that belongs in an AI-operationalization portfolio on its own merits; included only as the pointer to the projects it links to."
+      },
+      {
+        name: "health-dashboard",
+        url: "https://github.com/gheistand/health-dashboard",
+        purpose: "Personal health-data dashboard (lab trends, genomic variant analysis, Garmin biometrics) for Glenn's own use. Personal, not professional/scientific-survey work.",
+        types: ["coding", "prompt"],
+        typeLabel: "AI-assisted coding; possible prompt engineering for variant summaries (unconfirmed from repo alone)",
+        maturity: "outofscope",
+        maturityLabel: "Working prototype / personal use",
+        impact: "Personal quantified-self tool; no professional workflow to accelerate.",
+        governance: "Contains personal health/genomic data \u2014 sensitivity is real but it's private personal data, not survey/scientific data governance.",
+        lesson: "Out of scope for a PRI professional evidence portfolio; flagged only for completeness of the full repository list."
+      },
+      {
+        name: "garmin-data",
+        url: "https://github.com/gheistand/garmin-data",
+        purpose: "Personal Garmin Connect running/activity data archive and dashboard. Personal fitness tracking, not scientific/professional work.",
+        types: ["none"],
+        typeLabel: "No AI component found in repository contents",
+        maturity: "outofscope",
+        maturityLabel: "Working prototype \u2014 personal use",
+        impact: "None professional.",
+        governance: "None.",
+        lesson: "Out of scope for this audit; personal project."
+      },
+      {
+        name: "reepworks-site / baseflood-com / baseflood-wordpress-archive",
+        url: "https://github.com/gheistand/reepworks-site",
+        purpose: "Marketing/business websites for Glenn's private consulting entities (Reep Works LLC / BaseFlood Engineering). Business infrastructure, not scientific work.",
+        types: ["coding"],
+        typeLabel: "AI-assisted coding only",
+        maturity: "outofscope",
+        maturityLabel: "In production use \u2014 static marketing sites",
+        impact: "Business development infrastructure; no scientific-survey workflow to report.",
+        governance: "None specific to survey/scientific data.",
+        lesson: "Out of scope for a PRI scientific-workflow portfolio."
+      },
+      {
+        name: "baseflood-reception",
+        url: "https://github.com/gheistand/baseflood-reception",
+        purpose: "Phone-answering webhook worker (ElevenLabs + Twilio + Cloudflare) for BaseFlood Engineering's business phone line. Business infrastructure, not scientific work.",
+        types: ["agentic"],
+        typeLabel: "Agentic automation (Tasker \u2014 automated phone answering)",
+        maturity: "outofscope",
+        maturityLabel: "Working prototype \u2014 minimal, 2 commits",
+        impact: "No scientific-survey workflow to report.",
+        governance: "Handles caller PII (phone calls) with no documented retention/logging policy visible in the README.",
+        lesson: "A phone-answering agent handling caller data without a documented retention policy would need one before any professional audit, if ever repurposed for survey work."
+      },
+      {
+        name: "askpastordave-iphone",
+        url: "https://github.com/gheistand/askpastordave-iphone",
+        purpose: "iOS app shell for the AskPastorDave AI faith companion. Ministry/business project, not scientific work.",
+        types: ["coding"],
+        typeLabel: "AI-assisted coding",
+        maturity: "outofscope",
+        maturityLabel: "Working prototype",
+        impact: "Not a scientific-survey workflow.",
+        governance: "None specific tracked in-repo beyond routing API calls through a proxy worker (avoids hardcoded keys).",
+        lesson: "Out of scope for this audit."
+      },
+      {
+        name: "chatgpt_codex_gheistand / desktop-tutorial",
+        url: "https://github.com/gheistand/chatgpt_codex_gheistand",
+        purpose: "Empty/abandoned scratch repositories \u2014 one literally named \u201cdumping ground,\u201d zero real content, single initial commit each, no activity since June 2025.",
+        types: ["none"],
+        typeLabel: "No AI component",
+        maturity: "abandoned",
+        maturityLabel: "Abandoned / trivial",
+        impact: "None.",
+        governance: "None.",
+        lesson: "Prune these before presenting any portfolio externally \u2014 empty repos dilute the signal of real work and invite an easy \u201cis this representative?\u201d objection from a committee."
+      }
+    ];
+
+    const maturityPillClass = {
+      production: "pill-maturity-production",
+      prototype: "pill-maturity-prototype",
+      experiment: "pill-maturity-experiment",
+      abandoned: "pill-maturity-abandoned",
+      outofscope: "pill-maturity-outofscope"
+    };
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function render() {
+      const grid = document.getElementById('repo-grid');
+      grid.innerHTML = repos.map(r => `
+        <div class="repo-card" data-types="${r.types.join(' ')}">
+          <div class="repo-head">
+            <div class="repo-name"><a href="${r.url}" target="_blank" rel="noopener">${escapeHtml(r.name)}</a></div>
+            <span class="pill ${maturityPillClass[r.maturity]}">${escapeHtml(r.maturityLabel)}</span>
+          </div>
+          <p class="repo-purpose">${r.purpose}</p>
+          <div class="repo-detail-grid">
+            <div>
+              <div class="detail-label">AI usage type</div>
+              <div class="detail-body">${r.typeLabel}</div>
+            </div>
+            <div>
+              <div class="detail-label">Workflow impact</div>
+              <div class="detail-body">${r.impact}</div>
+            </div>
+          </div>
+          <div class="repo-detail-grid" style="margin-bottom: 1rem;">
+            <div style="grid-column: 1 / -1;">
+              <div class="detail-label">Governance features</div>
+              <div class="detail-body">${r.governance}</div>
+            </div>
+          </div>
+          <div class="lesson-box">
+            <strong>Transferable lesson</strong>
+            ${r.lesson}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    render();
+
+    document.getElementById('filters').addEventListener('click', (e) => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const filter = chip.dataset.filter;
+      document.querySelectorAll('.repo-card').forEach(card => {
+        const types = card.dataset.types.split(' ');
+        card.classList.toggle('hidden', filter !== 'all' && !types.includes(filter));
+      });
+    });
+  </script>
+</body>
+</html>
